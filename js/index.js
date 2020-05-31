@@ -1,7 +1,4 @@
-var ele= document.createElement("script");
-ele.setAttribute("type", "text/javascript");
-ele.setAttribute("src", "common/js/element.js");
-document.body.appendChild(ele);
+
 
 
 var vm = new Vue({                  //创建Vue 实例
@@ -120,20 +117,27 @@ var vm = new Vue({                  //创建Vue 实例
 
         },
         getList4: () => {
-            console.log(4)
+            console.log(4);
 
         },
 
+
         handleClose: (done) => {
 
-            console.log(ele.MessageBox)
-            this.$confirm('确认关闭？')
+
+            ELEMENT.MessageBox.confirm('确认关闭？')
+
                 .then(_ => {
+
                     done();
+
                 })
+
                 .catch(_ => {
 
                 });
+
+
         }
 
 
