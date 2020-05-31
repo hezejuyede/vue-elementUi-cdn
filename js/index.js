@@ -24,7 +24,9 @@ var vm = new Vue({                  //创建Vue 实例
             }],
         drawer: false,
         direction: 'rtl',
-        loading: false
+        loading: false,
+        outerVisible: false,
+        innerVisible: false
     },
 
     //刚刚new Vue()之后，这个时候，数据还没有挂载呢，只是一个空壳'
