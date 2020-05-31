@@ -1,6 +1,3 @@
-
-
-
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
@@ -27,6 +24,7 @@ var vm = new Vue({                  //创建Vue 实例
             }],
         drawer: false,
         direction: 'rtl',
+        loading: false
     },
 
     //刚刚new Vue()之后，这个时候，数据还没有挂载呢，只是一个空壳'
