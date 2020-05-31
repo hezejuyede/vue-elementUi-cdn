@@ -1,3 +1,9 @@
+var ele= document.createElement("script");
+ele.setAttribute("type", "text/javascript");
+ele.setAttribute("src", "common/js/element.js");
+document.body.appendChild(ele);
+
+
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
@@ -28,6 +34,7 @@ var vm = new Vue({                  //创建Vue 实例
 
     //刚刚new Vue()之后，这个时候，数据还没有挂载呢，只是一个空壳'
     beforeCreate: function () {
+        console.log(1)
 
     },
 
@@ -35,19 +42,19 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
-        this.getList();
+        this.getList2();
     },
 
     //虚拟dom已经创建完成，马上就要渲染,在这里也可以更改数据，不会触发updated'
     // 在这里可以在渲染前最后一次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     //'接下来开始render，渲染出真实dom'
     beforeMount: function () {
-
+        this.getList3();
     },
     //mounted：此时，组件已经出现在页面中，数据、真实dom都已经处理好了,事件都已经挂载好了'
     //'可以在这里操作真实dom等事情...')
     mounted: function () {
-        this.getMessage();
+        this.getList4();
     },
 
     //用来监控自己定义的变量，该变量不在data里面声明，直接在computed里面定义，
@@ -64,6 +71,7 @@ var vm = new Vue({                  //创建Vue 实例
     //这里不能更改数据，否则会陷入死循环
 
     beforeUpdate: function () {
+
     },
 
     //数据已经更改完成，dom也重新render完成'
@@ -97,23 +105,34 @@ var vm = new Vue({                  //创建Vue 实例
 
     methods: {                     // 定义方法，用于事件交互时使用的函数
 
-        getList: () => {
+        getList1: () => {
             console.log(1)
 
 
         },
 
-        getMessage: () => {
+        getList2: () => {
             console.log(2)
+
+        },
+        getList3: () => {
+            console.log(3)
+
+        },
+        getList4: () => {
+            console.log(4)
 
         },
 
         handleClose: (done) => {
+
+            console.log(ele.MessageBox)
             this.$confirm('确认关闭？')
                 .then(_ => {
                     done();
                 })
                 .catch(_ => {
+
                 });
         }
 
