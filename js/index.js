@@ -58,9 +58,16 @@ var vm = new Vue({                  //创建Vue 实例
     // 然后就可以在页面上进行双向数据绑定展示出结果或者用作其他处理；
     //适合对多个变量或者对象进行处理后返回一个结果值，
     //也就是数多个变量中的某一个值发生了变化则我们监控的这个值也就会发生变化，
+    //计算属性默认只有getter，可以在需要的时候自己设定setter：
 
-    computed: function () {
+    computed: {
+        get: function () {
 
+        },
+        // setter
+        set: function (newValue) {
+
+        }
     },
 
     //重新渲染之前触发'，'然后vue的虚拟dom机制会重新构建虚拟dom与
@@ -95,9 +102,7 @@ var vm = new Vue({                  //创建Vue 实例
     //只能监控整个对象或单个变量
     //一般用于监控路由、input输入框的值特殊处理等等，它比较适合的场景是一个数据影响多个数据
 
-    watch: function () {
-
-    },
+    watch: {},
 
 
     methods: {                     // 定义方法，用于事件交互时使用的函数
