@@ -26,7 +26,11 @@ var vm = new Vue({                  //创建Vue 实例
         direction: 'rtl',
         loading: false,
         outerVisible: false,
-        innerVisible: false
+        innerVisible: false,
+
+        firstName: 'Foo',
+        lastName: 'Bar',
+        fullName: 'Foo Bar'
     },
 
     //刚刚new Vue()之后，这个时候，数据还没有挂载呢，只是一个空壳'
@@ -59,6 +63,8 @@ var vm = new Vue({                  //创建Vue 实例
     //适合对多个变量或者对象进行处理后返回一个结果值，
     //也就是数多个变量中的某一个值发生了变化则我们监控的这个值也就会发生变化，
     //计算属性默认只有getter，可以在需要的时候自己设定setter：
+
+    //一个的数据受很多数据的影响
 
     computed: {
         get: function () {
@@ -101,8 +107,16 @@ var vm = new Vue({                  //创建Vue 实例
     // 它可以监控一个变量，也可以是一个对象，
     //只能监控整个对象或单个变量
     //一般用于监控路由、input输入框的值特殊处理等等，它比较适合的场景是一个数据影响多个数据
+    //一个数据影响很多数据
 
-    watch: {},
+    watch: {
+        firstName: function (val) {
+            this.fullName = val + ' ' + this.lastName
+        },
+        lastName: function (val) {
+            this.fullName = this.firstName + ' ' + val
+        }
+    },
 
 
     methods: {                     // 定义方法，用于事件交互时使用的函数
