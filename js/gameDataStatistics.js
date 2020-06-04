@@ -3,8 +3,6 @@ var vm = new Vue({                  //创建Vue 实例
     data: {                         // 定义属性，并设置初始值
 
 
-
-
         firstName: 'Foo',
         lastName: 'Bar',
         fullName: 'Foo Bar'
@@ -22,8 +20,6 @@ var vm = new Vue({                  //创建Vue 实例
     created: function () {
 
 
-
-
     },
 
     //虚拟dom已经创建完成，马上就要渲染,在这里也可以更改数据，不会触发updated'
@@ -37,7 +33,6 @@ var vm = new Vue({                  //创建Vue 实例
     mounted: function () {
 
         this.setDivHeight();
-
 
 
     },
@@ -111,6 +106,7 @@ var vm = new Vue({                  //创建Vue 实例
         setDivHeight: () => {
             $(".elContainer").height(window.innerHeight);
         },
+
 
 
         handleClose: (done) => {

@@ -1,7 +1,6 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        page:"page/configurationPage.html",
 
 
         firstName: 'Foo',
@@ -108,36 +107,7 @@ var vm = new Vue({                  //创建Vue 实例
             $(".elContainer").height(window.innerHeight);
         },
 
-        //选择菜单执行的跳转
-        selectNav: (key, keyPath) => {
 
-            if (key === "1-1-1") {
-                this.page="/cdn-vue-elementUi/page/configurationPage.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-
-            }
-            else if (key === "1-2-1") {
-                this.page="/cdn-vue-elementUi/page/createPage1.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-3-1") {
-                this.page="/cdn-vue-elementUi/page/addNotice.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-4") {
-                this.page="/cdn-vue-elementUi/page/searchUserData.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-5") {
-                this.page="/cdn-vue-elementUi/page/gameDataStatistics.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-
-
-
-
-
-        },
 
 
         handleClose: (done) => {
