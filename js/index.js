@@ -1,7 +1,7 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        page:"page/configurationPage.html",
+        page:"/cdn-vue-elementUi/page/addNotice.html",
 
 
         firstName: 'Foo',
@@ -138,25 +138,6 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         },
-
-
-        handleClose: (done) => {
-
-
-            ELEMENT.MessageBox.confirm('确认关闭？')
-
-                .then(_ => {
-
-                    done();
-
-                })
-
-                .catch(_ => {
-
-                });
-
-
-        }
 
 
     }
