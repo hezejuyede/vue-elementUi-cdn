@@ -26,12 +26,10 @@
     <title>国家电网</title>
     <link rel="stylesheet" href="../common/css/base.css">
     <link rel="stylesheet" href="../common/css/element.css">
-    <link rel="stylesheet/less" href="../css/index.css">
+    <link rel="stylesheet" href="../css/configurationPage.css">
     <!--[if IE]>
     <script src="../common/js/html5shiv.js"></script>
     <![endif]-->
-
-
 </head>
 
 <body>
@@ -48,9 +46,33 @@
             </el-breadcrumb>
 
         </el-header>
-
         <el-main>
-
+            <el-row>
+                <el-card :body-style="{ padding: '0px' }">
+                    <div class="el-card-div">
+                        <div class="el-card-div-left">
+                            <div class="el-card-div-left-img fl">
+                                <el-image
+                                        style="width: 180px; height: 180px;border-radius:10px ;"
+                                        src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                                </el-image>
+                            </div>
+                            <div class="el-card-div-left-text fl">
+                                <div class="">赚电能</div>
+                                <div class=""><span>游戏状态：</span><span>上架</span></div>
+                                <div class=""><span>上线时间：</span><span>2020-03-21</span></div>
+                                <div class="">
+                                    简介：这是乱写的不要看了，无论是任务功能或者打卡、签到功能，都属于激励系统(用户成长体系)的一部分，核心目的都是为了激励用户……
+                                </div>
+                            </div>
+                        </div>
+                        <div class="el-card-div-right">
+                            <el-button type="primary" round @click="">进入配置</el-button>
+                            <div class="el-card-div-right-btn" @click="dismountGame">下架</div>
+                        </div>
+                    </div>
+                </el-card>
+            </el-row>
         </el-main>
     </el-container>
 </div>
@@ -59,9 +81,8 @@
 <script src="../common/js/vue.min.js"></script>
 <script src="../common/js/element.js"></script>
 <script src="../common/js/jquery-3.1.1.min.js"></script>
-<script src="../common/js/utils.js"></script>
-<script src="../js/index.js"></script>
-<script src="../common/js/less.min.js"></script>
+<script src="../js/configurationPage.js"></script>
+
 
 </body>
 </html>
