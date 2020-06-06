@@ -39,6 +39,10 @@ var vm = new Vue({                  //创建Vue 实例
             label: '北京烤鸭'
             }],
 
+        editorOption: {
+            placeholder: ''
+        },
+
         headers: {},
         uploadUrl:"",
         uploadData: {},

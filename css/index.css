@@ -1,3 +1,8 @@
+.elContainer{
+    overflow: auto;
+}
+
+
 .elHeader{
     height: 100px;
     display: flex;

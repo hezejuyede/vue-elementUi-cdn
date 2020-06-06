@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="../common/css/base.css">
     <link rel="stylesheet" href="../common/css/element.css">
     <link rel="stylesheet" href="../css/addNotice.css">
+    <link rel="stylesheet" href="../common/js/quill/quill.core.css"/>
+    <link rel="stylesheet" href="../common/js/quill/quill.snow.css"/>
+    <link rel="stylesheet" href="../common/js/quill/quill.bubble.css"/>
     <!--[if IE]>
     <script src="../common/js/html5shiv.js"></script>
     <![endif]-->
@@ -34,6 +37,9 @@
     <style>
         .hide .el-upload--picture-card {
             display: none;
+        }
+        .ql-editor{
+            height:400px;
         }
     </style>
 
@@ -105,8 +111,12 @@
                             :before-upload="beforeAvatarUpload"
                             :on-error="uploadFailure">
                         <i class="el-icon-plus"></i>
-                        <div class="el-upload__tip" slot="tip">只能上传jpeg/jpg/png文件，且不超过2M</div>
+                        <div class="el-upload__tip" slot="tip" style="margin-left: 100px">只能上传jpeg/jpg/png文件，且不超过2M</div>
                     </el-upload>
+                </el-form-item>
+                <el-form-item label="公告正文：" prop="CONSIGNEE_NAME" >
+                    <quill-editor ref="myTextEditor" v-model="ruleForm.CONSIGNEE_NAME" :options="editorOption"></quill-editor>
+
                 </el-form-item>
 
             </el-form>
@@ -123,11 +133,15 @@
     </el-container>
 </div>
 
-
-<script src="../common/js/vue.min.js"></script>
-<script src="../common/js/element.js"></script>
-<script src="../common/js/jquery-3.1.1.min.js"></script>
-<script src="../js/addNotice.js"></script>
+<script type="text/javascript" src="../common/js/quill/quill.js"></script>
+<script type="text/javascript" src="../common/js/vue.min.js"></script>
+<script type="text/javascript" src="../common/js/element.js"></script>
+<script type="text/javascript" src="../common/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="../common/js/quill/vue-quill-editor.js"></script>
+<script type="text/javascript">
+    Vue.use(window.VueQuillEditor)
+</script>
+<script type="text/javascript" src="../js/addNotice.js"></script>
 
 
 </body>
