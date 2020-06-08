@@ -26,10 +26,17 @@
     <title>国家电网</title>
     <link rel="stylesheet" href="../common/css/base.css">
     <link rel="stylesheet" href="../common/css/element.css">
-    <link rel="stylesheet/less" href="../css/index.css">
+    <link rel="stylesheet/less" href="../css/searchUserData.css">
     <!--[if IE]>
     <script src="../common/js/html5shiv.js"></script>
     <![endif]-->
+
+    <style>
+
+        .el-dialog{
+            border-radius: 10px;
+        }
+    </style>
 
 
 </head>
@@ -49,9 +56,123 @@
         </el-header>
 
         <el-main>
-
+            <div class="main-title clearfix">
+                <label class="main-title-search fr">
+                    <el-input v-model="userName" placeholder="请输入用户" style="width: 200px"></el-input>
+                    <el-button type="primary"  @click="searchUser">搜索</el-button>
+                </label>
+            </div>
+            <div class="main-table clearfix">
+                <el-table class="tb-edit"
+                          :data="tables"
+                          :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                          :cell-style="{fontSize:'12px'}"
+                          border
+                          :height="this.tableHeight"
+                          id="rebateSetTable"
+                          ref="moviesTable"
+                          highlight-current-row
+                          style="width: 98%;margin: auto">
+                    <el-table-column
+                            prop="xuhao"
+                            label="序号"
+                            align="center"
+                            width="100">
+                    </el-table-column>
+                    <el-table-column
+                            prop="MONEY"
+                            label="用户"
+                            align="center"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            prop="MONEY2"
+                            align="center"
+                            label="游戏加入时间">
+                    </el-table-column>
+                    <el-table-column
+                            prop="MONEY3"
+                            align="center"
+                            label="电能"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            prop="MONEY4"
+                            align="center"
+                            label="光伏板"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            align="center"
+                            label="操作"
+                            width="200">
+                        <template slot-scope="scope">
+                            <span v-if="scope.row.CHECK_STATUS ===0" @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="main-page clearfix">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10,50,100, 150,200,250,300]"
+                        :page-size="mrPage"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="countSize">
+                </el-pagination>
+            </div>
         </el-main>
     </el-container>
+
+
+    <!-- 查看弹出框 -->
+    <el-dialog title="行为记录" :visible.sync="templateVisible" width=60% :center="true" :close-on-click-modal="false" :show-close="true">
+        <div class="" style="height: 300px">
+            <el-table class="tb-edit"
+                      :data="tables"
+                      :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                      :cell-style="{fontSize:'12px'}"
+                      border
+                      :height="200"
+                      id="rebateSetTable"
+                      ref="moviesTable"
+                      highlight-current-row
+                      style="width: 98%;margin: auto">
+                <el-table-column
+                        prop="MONEY"
+                        label="开宝箱"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="MONEY2"
+                        align="center"
+                        label="捐赠">
+                </el-table-column>
+                <el-table-column
+                        prop="MONEY3"
+                        align="center"
+                        label="偷取">
+                </el-table-column>
+                <el-table-column
+                        prop="MONEY4"
+                        align="center"
+                        label="收获">
+                </el-table-column>
+                <el-table-column
+                        prop="MONEY4"
+                        align="center"
+                        label="任务">
+                </el-table-column>
+            </el-table>
+
+        </div>
+
+        <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
+                <el-button @click="templateVisible = false">关闭</el-button>
+        </span>
+    </el-dialog>
 </div>
 
 
@@ -59,7 +180,7 @@
 <script src="../common/js/element.js"></script>
 <script src="../common/js/jquery-3.1.1.min.js"></script>
 <script src="../common/js/utils.js"></script>
-<script src="../js/index.js"></script>
+<script src="../js/searchUserData.js"></script>
 <script src="../common/js/less.min.js"></script>
 
 </body>

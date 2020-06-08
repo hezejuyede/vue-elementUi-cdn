@@ -1,6 +1,24 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
+        tables:[
+            {"xuhao":1,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":2,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":3,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":4,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":5,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":6,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":7,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0}
+        ],
+        userName:"",
+
+        templateVisible:false,
+
+        currentPage: 1,
+        startIndex: 0,
+        mrPage: 10,
+        pageNum: Number,
+        countSize: 0,
 
 
         firstName: 'Foo',
@@ -18,6 +36,8 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
+        this.setTableHeight();
+        this.getTableList();
 
 
     },
@@ -104,28 +124,54 @@ var vm = new Vue({                  //创建Vue 实例
 
         //根据屏幕设置div高度
         setDivHeight: () => {
-            $(".elContainer").height(window.innerHeight);
+            let h = window.innerHeight
+            $(".elContainer").height(h);
+        },
+
+        //动态设置table高度
+
+        setTableHeight(){
+            let h = window.innerHeight;
+            this.tableHeight = h - 250;
         },
 
 
 
-        handleClose: (done) => {
 
 
-            ELEMENT.MessageBox.confirm('确认关闭？')
 
-                .then(_ => {
+        //查询用户
+        searchUser(){
 
-                    done();
-
-                })
-
-                .catch(_ => {
-
-                });
+        },
 
 
-        }
+        //页面加载去请求的table
+        getTableList(){
+
+        },
+
+
+        editClick(){
+            this.templateVisible =true;
+
+        },
+
+
+
+        //显示数据改变
+        handleSizeChange(val) {
+            this.mrPage = val;
+            this.startIndex = (this.currentPage - 1) * this.mrPage;
+            this.getTableList();
+        },
+
+
+        //页面改变
+        handleCurrentChange(val) {
+            this.startIndex = (val-1) * this.mrPage;
+            this.getTableList();
+        },
 
 
     }
