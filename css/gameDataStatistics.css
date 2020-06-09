@@ -1,0 +1,24 @@
+.elHeader{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 50px;
+}
+.main-title{
+    padding-left: 2%;
+    height: 80px;
+}
+
+.main-title-search{
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.main-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 10px
+}

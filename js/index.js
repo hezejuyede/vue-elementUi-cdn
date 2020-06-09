@@ -1,7 +1,7 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        page:"/cdn-vue-elementUi/page/searchUserData.html",
+        page:"/cdn-vue-elementUi/page/gameDataStatistics.html",
 
 
         firstName: 'Foo',

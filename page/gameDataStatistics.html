@@ -26,7 +26,7 @@
     <title>国家电网</title>
     <link rel="stylesheet" href="../common/css/base.css">
     <link rel="stylesheet" href="../common/css/element.css">
-    <link rel="stylesheet/less" href="../css/index.css">
+    <link rel="stylesheet/less" href="../css/gameDataStatistics.css">
     <!--[if IE]>
     <script src="../common/js/html5shiv.js"></script>
     <![endif]-->
@@ -49,6 +49,182 @@
         </el-header>
 
         <el-main>
+            <el-tabs type="border-card">
+                <el-tab-pane label="电能统计">
+                    <div class="main-title clearfix">
+                        <label class="main-title-search">
+                             <span>用户</span>
+                            <span>:</span>
+                            <el-input v-model="userName" placeholder="请输入用户" style="width: 200px"></el-input>
+                        </label>
+                        <label class="main-title-search">
+                            <span>类型</span>
+                            <span>:</span>
+                            <el-select
+                                    style="width: 200px"
+                                    v-model="types"
+                                    clearable
+                                    filterable
+                                    allow-create
+                                    default-first-option
+                                    placeholder="请选择类型">
+                                <el-option
+                                        v-for="item in typesOptions"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
+                        </label>
+                        <label class="main-title-search">
+                            <span>创建时间</span>
+                            <span>:</span>
+                            <el-date-picker
+                                    style="width: 250px"
+                                    v-model="examineTime"
+                                    type="daterange"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期"
+                                    value-format="yyyy-MM-dd">
+                            </el-date-picker>
+                        </label>
+                        <label class="main-title-search">
+                            <el-button  type="primary" icon="el-icon-search"  @click="searchUser">搜索</el-button>
+                            <el-button  icon="el-icon-delete" @click="searchUser">重置</el-button>
+                        </label>
+                    </div>
+                    <div class="main-table clearfix">
+                        <el-table class="tb-edit"
+                                  :data="tables"
+                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :cell-style="{fontSize:'12px'}"
+                                  border
+                                  :height="this.tableHeight"
+                                  id="rebateSetTable"
+                                  ref="moviesTable"
+                                  highlight-current-row
+                                  style="width: 98%;margin: auto">
+                            <el-table-column
+                                    prop="xuhao"
+                                    label="序号"
+                                    align="center"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY"
+                                    label="用户"
+                                    align="center"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY2"
+                                    align="center"
+                                    label="游戏加入时间">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY3"
+                                    align="center"
+                                    label="电能"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY4"
+                                    align="center"
+                                    label="光伏板"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    label="操作"
+                                    width="200">
+                                <template slot-scope="scope">
+                                    <span v-if="scope.row.CHECK_STATUS ===0" @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <div class="main-page clearfix">
+                        <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="currentPage"
+                                :page-sizes="[10,50,100, 150,200,250,300]"
+                                :page-size="mrPage"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="countSize">
+                        </el-pagination>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="捐赠统计">
+                    <div class="main-title clearfix">
+                        <label class="main-title-search fr">
+                            <el-input v-model="userName" placeholder="请输入用户" style="width: 200px"></el-input>
+                            <el-button type="primary"  @click="searchUser">搜索</el-button>
+                        </label>
+                    </div>
+                    <div class="main-table clearfix">
+                        <el-table class="tb-edit"
+                                  :data="tables"
+                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :cell-style="{fontSize:'12px'}"
+                                  border
+                                  :height="this.tableHeight"
+                                  id="rebateSetTable"
+                                  ref="moviesTable"
+                                  highlight-current-row
+                                  style="width: 98%;margin: auto">
+                            <el-table-column
+                                    prop="xuhao"
+                                    label="序号"
+                                    align="center"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY"
+                                    label="用户"
+                                    align="center"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY2"
+                                    align="center"
+                                    label="游戏加入时间">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY3"
+                                    align="center"
+                                    label="电能"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MONEY4"
+                                    align="center"
+                                    label="光伏板"
+                                    width="200">
+                            </el-table-column>
+                            <el-table-column
+                                    align="center"
+                                    label="操作"
+                                    width="200">
+                                <template slot-scope="scope">
+                                    <span v-if="scope.row.CHECK_STATUS ===0" @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <div class="main-page clearfix">
+                        <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="currentPage"
+                                :page-sizes="[10,50,100, 150,200,250,300]"
+                                :page-size="mrPage"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="countSize">
+                        </el-pagination>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
 
         </el-main>
     </el-container>
@@ -59,7 +235,7 @@
 <script src="../common/js/element.js"></script>
 <script src="../common/js/jquery-3.1.1.min.js"></script>
 <script src="../common/js/utils.js"></script>
-<script src="../js/index.js"></script>
+<script src="../js/gameDataStatistics.js"></script>
 <script src="../common/js/less.min.js"></script>
 
 </body>
