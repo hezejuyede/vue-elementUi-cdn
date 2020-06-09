@@ -1,7 +1,52 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        page:"/cdn-vue-elementUi/page/configurationPageSettings.html",
+        tables: [
+            {"xuhao": 1, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 2, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 3, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 4, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 5, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0}
+        ],
+
+        tablesGL:[],
+
+        tableSetTings: [
+            {"id": 1, "MONEY": "分享1篇热点文章", "MONEY2": "1"},
+            {"id": 2, "MONEY": "完成1次电能知识答题", "MONEY2": "2"},
+            {"id": 3, "MONEY": "签到", "MONEY2": "3"},
+        ],
+
+        activeName: "first",
+        userName: "",
+        examineTime: "",
+        types: "",
+        typesOptions: [
+            {"name": "收获", "id": 1},
+            {"name": "任务", "id": 2},
+            {"name": "偷取", "id": 3}
+        ],
+
+
+        ruleForm: {
+            CONSIGNEE_NAME: "",
+        },
+        rules: {
+            CONSIGNEE_NAME: [
+                {required: true, message: '请输入收货人姓名', trigger: 'blur'},
+                {min: 2, max: 20, message: '姓名在 2 到 20 个字符'}
+            ],
+
+        },
+
+
+        currentPage: 1,
+        startIndex: 0,
+        mrPage: 10,
+        pageNum: Number,
+        countSize: 0,
 
 
         firstName: 'Foo',
@@ -19,6 +64,8 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
+        this.setTableHeight();
+        this.getTableList();
 
 
     },
@@ -105,38 +152,97 @@ var vm = new Vue({                  //创建Vue 实例
 
         //根据屏幕设置div高度
         setDivHeight: () => {
-            $(".elContainer").height(window.innerHeight);
+            let h = window.innerHeight
+            $(".elContainer").height(h);
         },
 
-        //选择菜单执行的跳转
-        selectNav: (key, keyPath) => {
+        //动态设置table高度
 
-            if (key === "1-1-1") {
-                this.page="/cdn-vue-elementUi/page/configurationPage.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
+        setTableHeight() {
+            let h = window.innerHeight;
+            this.tableHeight = h - 350;
+        },
+
+        //tab被选中时触发
+        tabClick(tab, event) {
+            if (this.activeName === "first") {
+
+            } else if (this.activeName === "second") {
+
+            } else if (this.activeName === "third") {
+
+            } else if (this.activeName === "fourth") {
+
+            } else if (this.activeName === "fifth") {
 
             }
-            else if (key === "1-2-1") {
-                this.page="/cdn-vue-elementUi/page/createPage1.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
+        },
+
+
+        //页面加载去请求的table
+        getTableList() {
+
+        },
+
+        //显示添加关联项目
+        showAddGL(){
+
+        },
+
+
+        //显示添加项目
+        showAddXM() {
+
+
+        },
+
+
+        //显示添加问答
+        showAddWD() {
+
+        },
+
+
+        editClick() {
+
+
+        },
+
+
+        //保存
+        doSave() {
+            if (this.activeName === "first") {
+
+            } else if (this.activeName === "second") {
+
+            } else if (this.activeName === "third") {
+
+            } else if (this.activeName === "fourth") {
+
+            } else if (this.activeName === "fifth") {
+
             }
-            else if (key === "1-3-1") {
-                this.page="/cdn-vue-elementUi/page/noticeList.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-4") {
-                this.page="/cdn-vue-elementUi/page/searchUserData.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-5") {
-                this.page="/cdn-vue-elementUi/page/gameDataStatistics.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
+        },
 
 
+        //取消
+        doCancel() {
+            window.history.go(-1)
+        },
 
 
+        //显示数据改变
+        handleSizeChange(val) {
+            this.mrPage = val;
+            this.startIndex = (this.currentPage - 1) * this.mrPage;
+            this.getTableList();
+        },
 
+
+        //页面改变
+        handleCurrentChange(val) {
+            this.startIndex = (val - 1) * this.mrPage;
+            this.getTableList();
         },
 
 

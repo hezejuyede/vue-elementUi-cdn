@@ -105,24 +105,33 @@ var vm = new Vue({                   //创建Vue 实例
     methods: {                     // 定义方法，用于事件交互时使用的函数
 
         //根据屏幕设置div高度
-        setDivHeight(){
+        setDivHeight() {
             $(".elContainer").height(window.innerHeight);
         },
 
 
-        dismountGame(){
+        //进行配置
+        doSettings() {
+            let page = "/cdn-vue-elementUi/page/configurationPageSettings.html"
+            window.location.href = page;
 
-           this.$confirm('下架后用户将不能在APP看到游戏入口', '确定将该游戏下架？', {
+        },
+
+
+        //显示下架
+        dismountGame() {
+
+            this.$confirm('下架后用户将不能在APP看到游戏入口', '确定将该游戏下架？', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-               this.$message({
+                this.$message({
                     type: 'success',
                     message: '删除成功!'
                 });
             }).catch(() => {
-               this.$message({
+                this.$message({
                     type: 'info',
                     message: '已取消删除'
                 });
