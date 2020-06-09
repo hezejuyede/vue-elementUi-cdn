@@ -171,8 +171,9 @@ var vm = new Vue({                  //创建Vue 实例
 
         editClick(){
 
-            this.page="/cdn-vue-elementUi/page/donationRecord.html"
-            document.getElementById("iframe").setAttribute("src",this.page);
+            this.page="/cdn-vue-elementUi/page/donationRecord.html";
+            window.location.href=this.page;
+
 
 
         },
