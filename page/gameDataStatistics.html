@@ -135,40 +135,34 @@
                                     prop="xuhao"
                                     label="序号"
                                     align="center"
-                                    width="100">
+                                    width="150">
                             </el-table-column>
                             <el-table-column
                                     prop="MONEY"
                                     label="用户"
                                     align="center"
-                                    width="200">
+                                    width="250">
                             </el-table-column>
-                            <el-table-column
-                                    prop="MONEY2"
-                                    align="center"
-                                    label="游戏加入时间">
-                            </el-table-column>
+
                             <el-table-column
                                     prop="MONEY3"
                                     align="center"
-                                    label="电能"
-                                    width="200">
+                                    label="类型"
+                                    width="250">
                             </el-table-column>
                             <el-table-column
                                     prop="MONEY4"
                                     align="center"
-                                    label="光伏板"
-                                    width="200">
+                                    label="电能"
+                                    width="250">
                             </el-table-column>
                             <el-table-column
+                                    prop="MONEY2"
                                     align="center"
-                                    label="操作"
-                                    width="200">
-                                <template slot-scope="scope">
-                                    <span v-if="scope.row.CHECK_STATUS ===0" @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
-                                </template>
+                                    label="创建时间">
                             </el-table-column>
                         </el-table>
+
                     </div>
                     <div class="main-page clearfix">
                         <el-pagination
@@ -185,8 +179,8 @@
                 <el-tab-pane label="捐赠统计">
                     <div class="main-title clearfix">
                         <label class="main-title-search fr">
-                            <el-input v-model="userName" placeholder="请输入用户" style="width: 200px"></el-input>
-                            <el-button type="primary"  @click="searchUser">搜索</el-button>
+                            <el-input v-model="userName" placeholder="请输入项目名称" style="width: 300px"></el-input>
+                            <el-button type="primary" icon="el-icon-search" @click="searchUser">搜索</el-button>
                         </label>
                     </div>
                     <div class="main-table clearfix">
@@ -206,28 +200,24 @@
                                     align="center"
                                     width="100">
                             </el-table-column>
-                            <el-table-column
-                                    prop="MONEY"
-                                    label="用户"
-                                    align="center"
-                                    width="200">
-                            </el-table-column>
+
                             <el-table-column
                                     prop="MONEY2"
                                     align="center"
-                                    label="游戏加入时间">
+                                    label="项目名称">
                             </el-table-column>
+
                             <el-table-column
                                     prop="MONEY3"
                                     align="center"
-                                    label="电能"
-                                    width="200">
+                                    label="捐赠人数"
+                                    width="250">
                             </el-table-column>
                             <el-table-column
-                                    prop="MONEY4"
+                                    prop="MONEY"
+                                    label="捐赠数量"
                                     align="center"
-                                    label="光伏板"
-                                    width="200">
+                                    width="250">
                             </el-table-column>
                             <el-table-column
                                     align="center"

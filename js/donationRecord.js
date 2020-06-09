@@ -12,13 +12,8 @@ var vm = new Vue({                  //创建Vue 实例
         ],
         userName:"",
         examineTime:"",
-        types:"",
-        typesOptions: [
-            {"name": "收获", "id": 1},
-            {"name": "任务", "id": 2},
-            {"name": "偷取", "id": 3}
-        ],
-        templateVisible:false,
+
+
 
         currentPage: 1,
         startIndex: 0,
@@ -138,21 +133,8 @@ var vm = new Vue({                  //创建Vue 实例
 
         setTableHeight(){
             let h = window.innerHeight;
-            this.tableHeight = h - 300;
+            this.tableHeight = h - 250;
         },
-
-        //tab 被选中时触发
-        tabClick(value) {
-            if (value.index === 0) {
-                console.log(value.index)
-            } else {
-                console.log(value.index)
-            }
-
-
-        },
-
-
 
 
 
@@ -168,11 +150,12 @@ var vm = new Vue({                  //创建Vue 实例
 
         },
 
-
-        editClick(){
-            this.templateVisible =true;
-
+        //返回上一页
+        goBack() {
+            window.history.go(-1)
         },
+
+
 
 
 

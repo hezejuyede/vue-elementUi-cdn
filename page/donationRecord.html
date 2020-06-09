@@ -33,11 +33,29 @@
     <style>
 
         .elHeader{
+            width: 100%;
             height: 100px;
+            padding-left: 50px;
+
+        }
+        .elHeader-left{
+            float: left;
+            width: 300px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding-left: 50px;
+            padding-left: 20px;
+
+
+        }
+        .elHeader-right{
+            float: right;
+            height: 50px;
+            width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content:center;
         }
         .main-title{
             padding-left: 2%;
@@ -68,45 +86,34 @@
 <div id="app">
     <el-container class="elContainer">
         <el-header class="elHeader" style="text-align: right; font-size: 12px">
+            <div class="elHeader-left">
+                <el-breadcrumb separator-class="el-icon-arrow-right">
+                    <el-breadcrumb-item>游戏管理</el-breadcrumb-item>
+                    <el-breadcrumb-item>游戏数据统计</el-breadcrumb-item>
+                    <el-breadcrumb-item>项目捐赠记录</el-breadcrumb-item>
+                </el-breadcrumb>
+            </div>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item>游戏管理</el-breadcrumb-item>
-                <el-breadcrumb-item>游戏数据统计</el-breadcrumb-item>
-            </el-breadcrumb>
+
+            <div class="elHeader-right">
+                <el-button icon="el-icon-arrow-left" type="info" @click="goBack">返回</el-button>
+            </div>
 
         </el-header>
 
+
         <el-main>
             <div class="main-title clearfix">
-                <label class="main-title-search">
+                <label class="main-title-search fl">
                     <span>用户</span>
                     <span>:</span>
-                    <el-input v-model="userName" placeholder="请输入用户" style="width: 200px"></el-input>
+                    <el-input v-model="userName" placeholder="请输入用户" style="width: 250px"></el-input>
                 </label>
-                <label class="main-title-search">
-                    <span>类型</span>
-                    <span>:</span>
-                    <el-select
-                            style="width: 200px"
-                            v-model="types"
-                            clearable
-                            filterable
-                            allow-create
-                            default-first-option
-                            placeholder="请选择类型">
-                        <el-option
-                                v-for="item in typesOptions"
-                                :key="item.id"
-                                :label="item.name"
-                                :value="item.id">
-                        </el-option>
-                    </el-select>
-                </label>
-                <label class="main-title-search">
+                <label class="main-title-search fl">
                     <span>创建时间</span>
                     <span>:</span>
                     <el-date-picker
-                            style="width: 250px"
+                            style="width: 300px"
                             v-model="examineTime"
                             type="daterange"
                             start-placeholder="开始日期"
@@ -114,7 +121,7 @@
                             value-format="yyyy-MM-dd">
                     </el-date-picker>
                 </label>
-                <label class="main-title-search">
+                <label class="main-title-search fr">
                     <el-button type="primary" icon="el-icon-search" @click="searchUser">搜索</el-button>
                     <el-button icon="el-icon-delete" @click="searchUser">重置</el-button>
                 </label>
@@ -140,19 +147,13 @@
                             prop="MONEY"
                             label="用户"
                             align="center"
-                            width="250">
-                    </el-table-column>
-                    <el-table-column
-                            prop="MONEY3"
-                            align="center"
-                            label="电能"
-                            width="250">
+                            width="350">
                     </el-table-column>
                     <el-table-column
                             prop="MONEY4"
                             align="center"
-                            label="类型"
-                            width="250">
+                            label="捐赠数量"
+                            width="350">
                     </el-table-column>
                     <el-table-column
                             prop="MONEY2"
