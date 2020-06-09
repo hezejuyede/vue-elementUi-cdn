@@ -1,52 +1,30 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
+        tables:[
+            {"xuhao":1,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":2,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":3,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":4,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":5,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":6,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
+            {"xuhao":7,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0}
+        ],
+        userName:"",
+        examineTime:"",
+        types:"",
+        typesOptions: [
+            {"name": "收获", "id": 1},
+            {"name": "任务", "id": 2},
+            {"name": "偷取", "id": 3}
+        ],
 
-        ruleForm: {
-            CONSIGNEE_NAME: "",
-            PHONE:"",
-            HARVEST_ADDRESS:"",
-            UNIT_NAME:"",
-            address:""
-        },
-        rules: {
-            CONSIGNEE_NAME: [
-                {required: true, message: '请输入收货人姓名', trigger: 'blur'},
-                {min: 2, max: 20, message: '姓名在 2 到 20 个字符'}
-            ],
 
-        },
-
-        options: [
-            {
-            value: '选项1',
-            label: '黄金糕'
-            },
-            {
-            value: '选项2',
-            label: '双皮奶'
-            },
-            {
-            value: '选项3',
-            label: '蚵仔煎'
-            },
-            {
-            value: '选项4',
-            label: '龙须面'
-            },
-            {
-            value: '选项5',
-            label: '北京烤鸭'
-            }],
-
-        editorOption: {
-            placeholder: ''
-        },
-
-        headers: {},
-        uploadUrl:"",
-        uploadData: {},
-        hideUpload: false,
+        currentPage: 1,
+        startIndex: 0,
+        mrPage: 10,
+        pageNum: Number,
+        countSize: 0,
 
 
         firstName: 'Foo',
@@ -64,6 +42,8 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
+        this.setTableHeight();
+        this.getTableList();
 
 
     },
@@ -150,85 +130,96 @@ var vm = new Vue({                  //创建Vue 实例
 
         //根据屏幕设置div高度
         setDivHeight: () => {
-            $(".elContainer").height(window.innerHeight);
+            let h = window.innerHeight
+            $(".elContainer").height(h);
+        },
+
+        //动态设置table高度
+
+        setTableHeight(){
+            let h = window.innerHeight;
+            this.tableHeight = h - 240;
+        },
+
+
+
+
+        //查询
+        doSearch(){
+
+        },
+
+        //进行重置
+        doReset(){
+
+
+        },
+
+
+        //页面加载去请求的table
+        getTableList(){
+
         },
 
 
         //进行新增
-        doAdd() {
 
-            this.$refs.form.validate((valid) => {
-                if (valid) {
+        doAdd(){
 
-                } else {
-                    return this.$message.warning("信息填写不正确");
-                    return false
-                }
+            let page="/cdn-vue-elementUi/page/noticeAdd.html";
+            window.location.href= page;
+
+        },
+
+
+        //进行编辑
+        editClick(){
+            let page="/cdn-vue-elementUi/page/noticeEdit.html";
+            window.location.href= page;
+        },
+
+        //显示删除
+        showDelete(){
+
+            this.$confirm('删除后不和恢复', '确定删除', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
             });
 
-
         },
 
-
-        //进行保存
-        doSave() {
-            this.$refs.form.validate((valid) => {
-                if (valid) {
-
-                } else {
-                    return this.$message.warning("信息填写不正确");
-                    return false
-                }
-            });
+        //进行删除
+        doDelete(){
 
 
         },
 
 
-
-
-
-        //上传照片前的校验
-        beforeAvatarUpload(file) {
-            var testmsg = /^image\/(jpeg|png|jpg)$/.test(file.type);
-            const isLt4M = file.size / 1024 / 1024 <= 2;
-            if (!testmsg) {
-                this.$message.error('上传图片格式不对!');
-                return false
-            }
-            if (!isLt4M) {
-                this.$message.error('上传图片大小不能超过 2M!');
-                return false
-            }
+        //分页显示数据改变
+        handleSizeChange(val) {
+            this.mrPage = val;
+            this.startIndex = (this.currentPage - 1) * this.mrPage;
+            this.getTableList();
         },
 
 
-        //图片上传成功后调用
-        uploadSuccess(response, file, fileList) {
-
+        //分页页面改变
+        handleCurrentChange(val) {
+            this.startIndex = (val - 1) * this.mrPage;
+            this.getTableList();
         },
-
-
-        //上传失败
-        uploadFailure(err, file, fileList) {
-            this.hideUpload = false;
-            this.$refs.upload.clearFiles();
-            this.$message.warning(err);
-        },
-
-
-        //上传超过设定值
-        handleEditChange(file, fileList) {
-            this.hideUpload = fileList.length >= 1;
-        },
-
-        //删除上传照片后
-        handleRemove(file, fileList) {
-            this.hideUpload = fileList.length >= 1
-        },
-
 
 
     }
 });
-

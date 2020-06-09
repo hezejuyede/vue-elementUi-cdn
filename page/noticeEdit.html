@@ -72,7 +72,7 @@
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item>游戏管理</el-breadcrumb-item>
                 <el-breadcrumb-item>公告管理</el-breadcrumb-item>
-                <el-breadcrumb-item>新增公告</el-breadcrumb-item>
+                <el-breadcrumb-item>编辑公告</el-breadcrumb-item>
             </el-breadcrumb>
         </el-header>
         <el-main>
@@ -141,7 +141,7 @@
             <div class="form-btn">
                 <el-button type="primary" @click="doSave">保存</el-button>
                 <el-button type="primary" @click="doAdd">确 定</el-button>
-                <el-button>取 消</el-button>
+                <el-button @click="doCancel">取 消</el-button>
             </div>
 
 
@@ -159,7 +159,7 @@
 <script type="text/javascript">
     Vue.use(window.VueQuillEditor)
 </script>
-<script type="text/javascript" src="../js/addNotice.js"></script>
+<script type="text/javascript" src="../js/noticeEdit.js"></script>
 
 
 </body>
