@@ -26,10 +26,38 @@
     <title>国家电网</title>
     <link rel="stylesheet" href="../common/css/base.css">
     <link rel="stylesheet" href="../common/css/element.css">
-    <link rel="stylesheet/less" href="../css/gameDataStatistics.css">
     <!--[if IE]>
     <script src="../common/js/html5shiv.js"></script>
     <![endif]-->
+
+    <style>
+
+        .elHeader{
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 50px;
+        }
+        .main-title{
+            padding-left: 2%;
+            height: 80px;
+        }
+
+        .main-title-search{
+            margin-top: 10px;
+            margin-right: 50px;
+        }
+
+        .main-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            margin-bottom: 10px
+        }
+
+    </style>
 
 
 </head>
@@ -144,16 +172,17 @@
                         :total="countSize">
                 </el-pagination>
             </div>
-
         </el-main>
     </el-container>
+
 </div>
 
 
 <script src="../common/js/vue.min.js"></script>
 <script src="../common/js/element.js"></script>
 <script src="../common/js/jquery-3.1.1.min.js"></script>
-<script src="../common/js/utils.js"></script>
 <script src="../js/donationRecord.js"></script>
+
+
 </body>
 </html>

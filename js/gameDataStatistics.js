@@ -18,7 +18,7 @@ var vm = new Vue({                  //创建Vue 实例
             {"name": "任务", "id": 2},
             {"name": "偷取", "id": 3}
             ],
-        templateVisible:false,
+
 
         currentPage: 1,
         startIndex: 0,
@@ -170,7 +170,7 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         editClick(){
-            this.templateVisible =true;
+
 
         },
 
