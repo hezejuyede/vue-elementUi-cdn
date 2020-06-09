@@ -141,6 +141,17 @@ var vm = new Vue({                  //创建Vue 实例
             this.tableHeight = h - 300;
         },
 
+        //tab 被选中时触发
+        tabClick(value) {
+            if (value.index === 0) {
+                console.log(value.index)
+            } else {
+                console.log(value.index)
+            }
+
+
+        },
+
 
 
 
