@@ -12,7 +12,7 @@ var vm = new Vue({                  //创建Vue 实例
         ],
 
 
-        activeName: "third",
+        activeName: "fourth",
         ruleForm: {
             csTimeType: "1",
             csTimes: "",
@@ -24,7 +24,9 @@ var vm = new Vue({                  //创建Vue 实例
             BTQSXQJ: "",
             RWJL:"",
             BXDHZ:"",
-            DHBXBZTS:""
+            DHBXBZTS:"",
+            XZXM:"",
+            QJSL:"",
 
         },
         rules: {
@@ -67,6 +69,14 @@ var vm = new Vue({                  //创建Vue 实例
                 {min: 2, max: 500, message: '至少输入两个字'}
             ],
 
+            XZXM: [
+                {required: true, message: '请选择项目', trigger: 'change'},
+            ],
+            QJSL: [
+                {required: true, message: '请输入起捐数量', trigger: 'blur'},
+                {pattern: /^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+
         },
 
 
@@ -104,6 +114,12 @@ var vm = new Vue({                  //创建Vue 实例
         addRwVisible:false,
         tablesGL:[],
         listData: [],
+
+
+        //捐赠管理
+        seeJZVisible: false,
+        addJZVisible: false,
+        editJZVisible: false,
 
 
 
@@ -209,6 +225,13 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
+
+
+
+
+
+
+
         //显示添加关联项目
         showAddGL() {
             this.addRwVisible = true;
@@ -272,19 +295,65 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
-
-
-
-
-
-
-
+        //查看项目捐赠
+        seeClickJZ() {
+            this.seeJZVisible=true;
+        },
 
         //显示添加项目
         showAddXM() {
+            this.addJZVisible = true;
+        },
 
+
+        //进行添加项目
+        doAddJZ() {
+            this.$refs.form6.validate((valid) => {
+                if (valid) {
+
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
+            });
 
         },
+
+
+        //显示编辑
+        editClickJZ(){
+             this.editJZVisible=true;
+
+        },
+
+        //进行编辑
+        doEditJZ(){
+
+        },
+        //显示删除捐赠
+        showDeleteJZ(row){
+
+            this.$confirm('', '确定删除？', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.doDeleteJZ(row.id);
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+
+        //进行删除捐赠
+        doDeleteJZ(id){
+
+        },
+
+
+
 
 
         //显示添加问答
