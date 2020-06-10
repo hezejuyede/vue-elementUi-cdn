@@ -104,7 +104,7 @@ var vm = new Vue({                  //创建Vue 实例
         addRwVisible:false,
         tablesGL:[],
         listData: [],
-        val: [],
+
 
 
 
@@ -209,45 +209,37 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
-
-
         //显示添加关联项目
-        showAddGL(){
-            this.addRwVisible=true;
+        showAddGL() {
+            this.addRwVisible = true;
+            this.listData=[];
 
         },
-
-        //进行项目关联
-        doSavePzAdd(){
-
-        },
-
         //选择那个一个
         selectList(val) {
-            this.val = val;
-            if (val.length) {
-                let data = [];
-                for (let i = 0; i < val.length; i++) {
-                    let a = val[i].ID;
-                    data.push(a)
-                }
-                this.listData = data;
+            this.listData = val;
 
-            } else {
-                this.listData = [];
 
-            }
         },
 
         //列表全部选择
         selectAll(val) {
-            this.selectList(val)
+            this.listData = val;
         },
 
         //选择改变
         selectionChange(val) {
-            this.selectList(val)
+            this.listData = val;
         },
+
+        //进行项目关联
+        doSavePzAdd() {
+            this.tablesGL = this.listData;
+            this.addRwVisible =false;
+
+        },
+
+
 
 
 
