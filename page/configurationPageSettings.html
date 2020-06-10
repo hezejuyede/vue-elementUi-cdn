@@ -74,6 +74,10 @@
             font-weight: bold;
         }
 
+        .el-dialog{
+            border-radius: 10px;
+        }
+
     </style>
 
 
@@ -254,8 +258,8 @@
                 <el-tab-pane label="任务管理" name="second">
                     <div class="main-table clearfix">
                         <el-table class="tb-edit"
-                                  :data="tables"
-                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :data="tableRW"
+                                  :header-cell-style="{background:'#f0f0f0'}"
                                   :cell-style="{fontSize:'12px'}"
                                   border
                                   :height="this.tableHeight"
@@ -287,7 +291,7 @@
                                     label="操作"
                                     width="200">
                                 <template slot-scope="scope">
-                                    <span @click="editClick(scope.row)"
+                                    <span @click="showRwPz(scope.row)"
                                           style="color: #409EFF;cursor: pointer">奖励配置</span>
                                 </template>
                             </el-table-column>
@@ -495,9 +499,33 @@
                 <el-button type="primary" @click="doSave">保存</el-button>
                 <el-button @click="doCancel">取 消</el-button>
             </div>
-
         </el-main>
     </el-container>
+
+    <!-- 任务配置弹出框 -->
+    <el-dialog title="任务配置" :visible.sync="rwVisible" width=40% :center="true" :close-on-click-modal="false" :show-close="true">
+        <div class="" style="height: 200px">
+            <el-form ref="form4" label-width="150px" :model="ruleForm" :rules="rules">
+                <el-form-item label="任务名称：" >
+                    <div class="">签到</div>
+                </el-form-item>
+                <el-form-item label="任务奖励：" prop="RWJL">
+                    <el-input v-model="ruleForm.RWJL"  style="width: 200px"></el-input>
+                    <span>电能值</span>
+                </el-form-item>
+            </el-form>
+
+        </div>
+
+        <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
+            <el-button @click="doSavePz" type="primary">确定</el-button>
+            <el-button @click="rwVisible = false">取消</el-button>
+        </span>
+    </el-dialog>
+
+
+
+
 </div>
 
 

@@ -21,35 +21,86 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         //玩法配置
-
-
-        playTable1:[
-             {"id": 1, "text": "分享1篇热点文章", "number": ""},
-             {"id": 2, "text": "完成1次电能知识答题", "number": ""},
-             {"id": 3, "text": "签到", "number": ""},
-         ],
-
-
+        playTable1: [
+            {"id": 1, "text": "分享1篇热点文章", "number": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
+            {"id": 3, "text": "签到", "number": ""},
+        ],
         playTable2: [
             {"id": 1, "text": "分享1篇热点文章", "numberF": "", "numberT": ""},
             {"id": 2, "text": "完成1次电能知识答题", "numberF": "", "numberT": ""},
             {"id": 3, "text": "签到", "numberF": "", "numberT": ""},
         ],
-
-
-
         playTable3: [
             {"id": 1, "text": "分享1篇热点文章", "number": ""},
             {"id": 2, "text": "完成1次电能知识答题", "number": ""},
             {"id": 3, "text": "签到", "number": ""},
         ],
+        ruleForm: {
+            csTimeType: "1",
+            csTimes: "",
+            TQSX: "",
+            DNFW: "1",
+            DNFWF: "",
+            DNFWT: "",
+            BTQSX: "1",
+            BTQSXQJ: "",
+            RWJL:"",
+
+        },
+        rules: {
+            csTimeType: [
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            csTimes: [
+                {required: true, message: '请输入全局时间', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            DNFW: [
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            DNFWF: [
+                {required: true, message: '请输入最低值', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            DNFWT: [
+                {required: true, message: '请输入最高值', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            BTQSX: [
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            BTQSXQJ: [
+                {required: true, message: '请输入', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            RWJL: [
+                {required: true, message: '请输入任务奖励', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+
+        },
+
+        //任务管理
+        tableRW:[
+            {"xuhao": 1, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 1},
+            {"xuhao": 2, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 2},
+            {"xuhao": 3, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 3},
+            {"xuhao": 4, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 4},
+            {"xuhao": 5, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 5},
+            {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 6},
+            {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 7}
+        ],
+
+        rwVisible:false,
 
 
 
 
 
 
-        activeName: "first",
+
+        activeName: "second",
         userName: "",
         examineTime: "",
         types: "",
@@ -62,46 +113,7 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
-        ruleForm: {
-            csTimeType: "1",
-            csTimes:"",
-            TQSX:"",
-            DNFW:"1",
-            DNFWF:"",
-            DNFWT:"",
-            BTQSX:"1",
-            BTQSXQJ:"",
 
-        },
-
-
-        rules: {
-            csTimeType: [
-                {required: true, message: '请选择', trigger: 'blur'},
-            ],
-            csTimes: [
-                {required: true, message: '请输入全局时间', trigger: 'blur'},
-            ],
-            number: [
-                {required: true, message: '请输入时间', trigger: 'blur'},
-            ],
-            DNFW:[
-                {required: true, message: '请选择', trigger: 'blur'},
-            ],
-            DNFWF:[
-                {required: true, message: '请输入最低值', trigger: 'blur'},
-            ],
-            DNFWT:[
-                {required: true, message: '请输入最高值', trigger: 'blur'},
-            ],
-            BTQSX:[
-                {required: true, message: '请选择', trigger: 'blur'},
-            ],
-            BTQSXQJ:[
-                {required: true, message: '请输入', trigger: 'blur'},
-            ],
-
-        },
 
 
 
@@ -246,6 +258,34 @@ var vm = new Vue({                  //创建Vue 实例
         getTableList() {
 
         },
+
+        //显示任务配置
+        showRwPz(row) {
+            if (row.id) {
+                this.rwVisible = true
+            }
+            else {
+                this.$message.warning("没有ID");
+            }
+
+        },
+
+        //进行任务配置
+        doSavePz() {
+            this.$refs.form4.validate((valid) => {
+                if (valid) {
+
+
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
+            });
+
+        },
+
+
+
 
         //显示添加关联项目
         showAddGL(){
