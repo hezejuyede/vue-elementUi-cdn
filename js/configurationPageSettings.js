@@ -22,18 +22,14 @@ var vm = new Vue({                  //创建Vue 实例
 
         //玩法配置
 
-        csTimeType:"1",
-        csTimes:"",
+
         playTable1:[
              {"id": 1, "text": "分享1篇热点文章", "number": ""},
              {"id": 2, "text": "完成1次电能知识答题", "number": ""},
              {"id": 3, "text": "签到", "number": ""},
          ],
 
-        TQSX:"",
-        DNFW:"1",
-        DNFWF:"",
-        DNFWT:"",
+
         playTable2: [
             {"id": 1, "text": "分享1篇热点文章", "numberF": "", "numberT": ""},
             {"id": 2, "text": "完成1次电能知识答题", "numberF": "", "numberT": ""},
@@ -41,8 +37,7 @@ var vm = new Vue({                  //创建Vue 实例
         ],
 
 
-        BTQSX:"1",
-        BTQSXQJ:"",
+
         playTable3: [
             {"id": 1, "text": "分享1篇热点文章", "number": ""},
             {"id": 2, "text": "完成1次电能知识答题", "number": ""},
@@ -68,15 +63,46 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         ruleForm: {
-            CONSIGNEE_NAME: "",
+            csTimeType: "1",
+            csTimes:"",
+            TQSX:"",
+            DNFW:"1",
+            DNFWF:"",
+            DNFWT:"",
+            BTQSX:"1",
+            BTQSXQJ:"",
+
         },
+
+
         rules: {
-            CONSIGNEE_NAME: [
-                {required: true, message: '请输入收货人姓名', trigger: 'blur'},
-                {min: 2, max: 20, message: '姓名在 2 到 20 个字符'}
+            csTimeType: [
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            csTimes: [
+                {required: true, message: '请输入全局时间', trigger: 'blur'},
+            ],
+            number: [
+                {required: true, message: '请输入时间', trigger: 'blur'},
+            ],
+            DNFW:[
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            DNFWF:[
+                {required: true, message: '请输入最低值', trigger: 'blur'},
+            ],
+            DNFWT:[
+                {required: true, message: '请输入最高值', trigger: 'blur'},
+            ],
+            BTQSX:[
+                {required: true, message: '请选择', trigger: 'blur'},
+            ],
+            BTQSXQJ:[
+                {required: true, message: '请输入', trigger: 'blur'},
             ],
 
         },
+
 
 
         currentPage: 1,
@@ -249,6 +275,29 @@ var vm = new Vue({                  //创建Vue 实例
         //保存
         doSave() {
             if (this.activeName === "first") {
+                let formArr=['form1','form2','form3'];  //假设这是三个form表单的ref
+                let resultArr=[];                        //用来接受返回结果的数组
+                let _self=this;
+                function checkForm(formName) {           //封装验证表单的函数
+                    let result = new Promise(function(resolve, reject) {
+                        _self.$refs[formName].validate((valid) => {
+                            if (valid) {
+                                resolve();
+                            } else { reject() }
+                        })
+                    });
+                    resultArr.push(result)               //push 得到promise的结果
+                }
+                formArr.forEach(item => {                //根据表单的ref校验
+                    checkForm(item)
+                });
+                Promise.all(resultArr).then(function() {            //都通过了
+                     console.log(1)
+
+                }).catch(function() {
+                    _self.$message.warning("值填写不正确");
+                    return false
+                });
 
             } else if (this.activeName === "second") {
 
