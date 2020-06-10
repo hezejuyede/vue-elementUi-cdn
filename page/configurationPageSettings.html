@@ -101,34 +101,34 @@
                         <div class="play-setTings-title">
                             收获配置
                         </div>
-                        <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules">
-                            <el-form-item label="成熟时间：" required >
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="1" border>全局</el-radio>
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="2" border>定制</el-radio>
+                        <el-form ref="form1" label-width="150px">
+                            <el-form-item label="成熟时间：" required>
+                                <el-radio v-model="csTimeType" label="1" border>全局</el-radio>
+                                <el-radio v-model="csTimeType" label="2" border>定制</el-radio>
                                 <div class="" style="margin-top: 10px">
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='1'">
-                                        <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 300px" placeholder="标题名称"></el-input>
+                                    <label v-if="csTimeType==='1'">
+                                        <el-input v-model="csTimes" style="width: 300px" placeholder="设定全局时间"></el-input>
                                         <span>分</span>
                                     </label>
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='2'">
+                                    <label v-if="csTimeType==='2'">
                                         <el-table
-                                                  :data="tableSetTings"
+                                                  :data="playTable1"
                                                   :cell-style="{fontSize:'12px'}"
                                                   border
-                                                  :height="300"
+                                                  :height="270"
                                                   highlight-current-row
                                                   style="width: 30%">
                                             <el-table-column
-                                                    prop="MONEY"
+                                                    prop="text"
                                                     align="center"
                                                     label="任务">
                                             </el-table-column>
                                             <el-table-column
-                                                    prop="MONEY2"
+                                                    prop="number"
                                                     align="center"
                                                     label="收取时间（分）">
                                                 <template slot-scope="scope">
-                                                    <el-input v-model="scope.row.MONEY2" style="width: 150px" placeholder="标题名称"></el-input>
+                                                    <el-input v-model="scope.row.number" style="width: 150px" placeholder="收取时间（分）"></el-input>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
@@ -142,56 +142,56 @@
                         <div class="play-setTings-title">
                             偷取配置
                         </div>
-                        <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules">
+                        <el-form ref="form2" label-width="150px" >
                             <el-form-item label="偷取电能上限">
-                                <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 300px"></el-input>
+                                <el-input v-model="TQSX" style="width: 300px"></el-input>
                                 <div class="" style="color: #999999">为“空”则不限制</div>
                             </el-form-item>
                             <el-form-item label="偷取电能范围：" required>
 
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="1" border>全局</el-radio>
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="2" border>定制</el-radio>
+                                <el-radio v-model="DNFW" label="1" border>全局</el-radio>
+                                <el-radio v-model="DNFW" label="2" border>定制</el-radio>
                                 <div class="" style="margin-top: 10px">
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='1'">
-                                        <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 140px"
+                                    <label v-if="DNFW==='1'">
+                                        <el-input v-model="DNFWF" style="width: 140px"
                                                   placeholder="最低"></el-input>
                                         <span>至</span>
-                                        <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 140px"
+                                        <el-input v-model="DNFWT" style="width: 140px"
                                                   placeholder="最高"></el-input>
                                     </label>
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='2'">
+                                    <label v-if="DNFW==='2'">
                                         <el-table
-                                                :data="tableSetTings"
+                                                :data="playTable2"
                                                 :cell-style="{fontSize:'12px'}"
                                                 border
                                                 :height="350"
                                                 highlight-current-row
                                                 style="width: 30%">
                                             <el-table-column
-                                                    prop="MONEY"
+                                                    prop="text"
                                                     align="center"
                                                     label="任务"
                                                     width="150">
                                             </el-table-column>
                                             <el-table-column
                                                     align="center"
-                                                    label="配送信息">
+                                                    label="偷取电能范围">
                                                 <el-table-column
-                                                        prop="MONEY2"
+                                                        prop="numberF"
                                                         align="center"
                                                         label="最低">
                                                     <template slot-scope="scope">
-                                                        <el-input v-model="scope.row.MONEY2" style="width: 80px"
-                                                                  placeholder="标题名称"></el-input>
+                                                        <el-input v-model="scope.row.numberF" style="width: 80px"
+                                                                  placeholder="最低"></el-input>
                                                     </template>
                                                 </el-table-column>
                                                 <el-table-column
-                                                        prop="MONEY2"
+                                                        prop="numberT"
                                                         align="center"
                                                         label="最高">
                                                     <template slot-scope="scope">
-                                                        <el-input v-model="scope.row.MONEY2" style="width: 80px"
-                                                                  placeholder="标题名称"></el-input>
+                                                        <el-input v-model="scope.row.numberT" style="width: 80px"
+                                                                  placeholder="最高"></el-input>
                                                     </template>
                                                 </el-table-column>
                                             </el-table-column>
@@ -206,34 +206,34 @@
                         <div class="play-setTings-title">
                             被偷取上限
                         </div>
-                        <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules">
-                            <el-form-item label="成熟时间：" required >
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="1" border>全局</el-radio>
-                                <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="2" border>定制</el-radio>
+                        <el-form ref="form3" label-width="150px" >
+                            <el-form-item label="被偷取上限：" required >
+                                <el-radio v-model="BTQSX" label="1" border>全局</el-radio>
+                                <el-radio v-model="BTQSX" label="2" border>定制</el-radio>
                                 <div class="" style="margin-top: 10px">
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='1'">
-                                        <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 300px" placeholder="标题名称"></el-input>
+                                    <label v-if="BTQSX==='1'">
+                                        <el-input v-model="BTQSXQJ" style="width: 300px" placeholder="全局被偷取上限"></el-input>
                                         <div class="" style="color: #999999">每个任务可收获电能的偷取上限</div>
                                     </label>
-                                    <label v-if="ruleForm.CONSIGNEE_NAME==='2'">
+                                    <label v-if="BTQSX==='2'">
                                         <el-table
-                                                  :data="tableSetTings"
+                                                  :data="playTable3"
                                                   :cell-style="{fontSize:'12px'}"
                                                   border
                                                   :height="300"
                                                   highlight-current-row
                                                   style="width: 30%">
                                             <el-table-column
-                                                    prop="MONEY"
+                                                    prop="text"
                                                     align="center"
                                                     label="任务">
                                             </el-table-column>
                                             <el-table-column
-                                                    prop="MONEY2"
+                                                    prop="number"
                                                     align="center"
-                                                    label="收取时间（分）">
+                                                    label="被偷取上限">
                                                 <template slot-scope="scope">
-                                                    <el-input v-model="scope.row.MONEY2" style="width: 150px" placeholder="标题名称"></el-input>
+                                                    <el-input v-model="scope.row.number" style="width: 150px" placeholder="被偷取上限"></el-input>
                                                 </template>
                                             </el-table-column>
                                         </el-table>

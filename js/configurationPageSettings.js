@@ -19,6 +19,41 @@ var vm = new Vue({                  //创建Vue 实例
             {"id": 3, "MONEY": "签到", "MONEY2": "3"},
         ],
 
+
+        //玩法配置
+
+        csTimeType:"1",
+        csTimes:"",
+        playTable1:[
+             {"id": 1, "text": "分享1篇热点文章", "number": ""},
+             {"id": 2, "text": "完成1次电能知识答题", "number": ""},
+             {"id": 3, "text": "签到", "number": ""},
+         ],
+
+        TQSX:"",
+        DNFW:"1",
+        DNFWF:"",
+        DNFWT:"",
+        playTable2: [
+            {"id": 1, "text": "分享1篇热点文章", "numberF": "", "numberT": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "numberF": "", "numberT": ""},
+            {"id": 3, "text": "签到", "numberF": "", "numberT": ""},
+        ],
+
+
+        BTQSX:"1",
+        BTQSXQJ:"",
+        playTable3: [
+            {"id": 1, "text": "分享1篇热点文章", "number": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
+            {"id": 3, "text": "签到", "number": ""},
+        ],
+
+
+
+
+
+
         activeName: "first",
         userName: "",
         examineTime: "",
@@ -28,6 +63,8 @@ var vm = new Vue({                  //创建Vue 实例
             {"name": "任务", "id": 2},
             {"name": "偷取", "id": 3}
         ],
+
+
 
 
         ruleForm: {
