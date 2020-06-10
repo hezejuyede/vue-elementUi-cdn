@@ -212,8 +212,13 @@ var vm = new Vue({                  //创建Vue 实例
         //显示添加关联项目
         showAddGL() {
             this.addRwVisible = true;
-            this.listData=[];
-
+            setTimeout(() => {
+                console.log(this.$refs.addTable)
+                for (let i = 0; i < this.tables.length; i++) {
+                    this.$refs.addTable.toggleRowSelection(this.tables[i], false)
+                }
+            }, 200);
+            this.leftDate=[];
         },
         //选择那个一个
         selectList(val) {
