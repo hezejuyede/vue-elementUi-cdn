@@ -11,31 +11,8 @@ var vm = new Vue({                  //创建Vue 实例
             {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0}
         ],
 
-        tablesGL:[],
 
-        tableSetTings: [
-            {"id": 1, "MONEY": "分享1篇热点文章", "MONEY2": "1"},
-            {"id": 2, "MONEY": "完成1次电能知识答题", "MONEY2": "2"},
-            {"id": 3, "MONEY": "签到", "MONEY2": "3"},
-        ],
-
-
-        //玩法配置
-        playTable1: [
-            {"id": 1, "text": "分享1篇热点文章", "number": ""},
-            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
-            {"id": 3, "text": "签到", "number": ""},
-        ],
-        playTable2: [
-            {"id": 1, "text": "分享1篇热点文章", "numberF": "", "numberT": ""},
-            {"id": 2, "text": "完成1次电能知识答题", "numberF": "", "numberT": ""},
-            {"id": 3, "text": "签到", "numberF": "", "numberT": ""},
-        ],
-        playTable3: [
-            {"id": 1, "text": "分享1篇热点文章", "number": ""},
-            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
-            {"id": 3, "text": "签到", "number": ""},
-        ],
+        activeName: "third",
         ruleForm: {
             csTimeType: "1",
             csTimes: "",
@@ -46,6 +23,8 @@ var vm = new Vue({                  //创建Vue 实例
             BTQSX: "1",
             BTQSXQJ: "",
             RWJL:"",
+            BXDHZ:"",
+            DHBXBZTS:""
 
         },
         rules: {
@@ -79,7 +58,35 @@ var vm = new Vue({                  //创建Vue 实例
                 {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
             ],
 
+            BXDHZ:[
+                {required: true, message: '请输入宝箱兑换值', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            DHBXBZTS:[
+                {required: true, message: '请输入兑换宝箱不足提示', trigger: 'blur'},
+                {min: 2, max: 500, message: '至少输入两个字'}
+            ],
+
         },
+
+
+        //玩法配置
+        playTable1: [
+            {"id": 1, "text": "分享1篇热点文章", "number": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
+            {"id": 3, "text": "签到", "number": ""},
+        ],
+        playTable2: [
+            {"id": 1, "text": "分享1篇热点文章", "numberF": "", "numberT": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "numberF": "", "numberT": ""},
+            {"id": 3, "text": "签到", "numberF": "", "numberT": ""},
+        ],
+        playTable3: [
+            {"id": 1, "text": "分享1篇热点文章", "number": ""},
+            {"id": 2, "text": "完成1次电能知识答题", "number": ""},
+            {"id": 3, "text": "签到", "number": ""},
+        ],
+
 
         //任务管理
         tableRW:[
@@ -91,16 +98,20 @@ var vm = new Vue({                  //创建Vue 实例
             {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 6},
             {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 7}
         ],
-
         rwVisible:false,
 
+        //关联任务
+        addRwVisible:false,
+        tablesGL:[],
+        listData: [],
+        val: [],
 
 
 
 
 
 
-        activeName: "second",
+
         userName: "",
         examineTime: "",
         types: "",
@@ -112,11 +123,6 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
-
-
-
-
-
         currentPage: 1,
         startIndex: 0,
         mrPage: 10,
@@ -124,20 +130,9 @@ var vm = new Vue({                  //创建Vue 实例
         countSize: 0,
 
 
-        firstName: 'Foo',
-        lastName: 'Bar',
-        fullName: 'Foo Bar'
     },
 
-    //刚刚new Vue()之后，这个时候，数据还没有挂载呢，只是一个空壳'
-    beforeCreate: function () {
 
-
-    },
-
-    //这个时候已经可以使用到数据，也可以更改数据,在这里更改数据不会触发updated函数'
-    //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
-    // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
         this.setTableHeight();
         this.getTableList();
@@ -145,85 +140,15 @@ var vm = new Vue({                  //创建Vue 实例
 
     },
 
-    //虚拟dom已经创建完成，马上就要渲染,在这里也可以更改数据，不会触发updated'
-    // 在这里可以在渲染前最后一次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
-    //'接下来开始render，渲染出真实dom'
-    beforeMount: function () {
-
-    },
-    //mounted：此时，组件已经出现在页面中，数据、真实dom都已经处理好了,事件都已经挂载好了'
-    //'可以在这里操作真实dom等事情...')
     mounted: function () {
 
         this.setDivHeight();
 
-
-    },
-
-    //用来监控自己定义的变量，该变量不在data里面声明，直接在computed里面定义，
-    // 然后就可以在页面上进行双向数据绑定展示出结果或者用作其他处理；
-    //适合对多个变量或者对象进行处理后返回一个结果值，
-    //也就是数多个变量中的某一个值发生了变化则我们监控的这个值也就会发生变化，
-    //计算属性默认只有getter，可以在需要的时候自己设定setter：
-
-    //一个的数据受很多数据的影响
-
-    computed: {
-        get: function () {
-
-        },
-        // setter
-        set: function (newValue) {
-
-        }
-    },
-
-    //重新渲染之前触发'，'然后vue的虚拟dom机制会重新构建虚拟dom与
-    // 上一次的虚拟dom树利用diff算法进行对比之后重新渲染'
-    //这里不能更改数据，否则会陷入死循环
-
-    beforeUpdate: function () {
-
-    },
-
-    //数据已经更改完成，dom也重新render完成'
-    //这里不能更改数据，否则会陷入死循环
-
-    update: function () {
-
-
-    },
-
-    ////销毁前执行（$destroy方法被调用的时候就会执行）,一般在这里善后:清除计时器、清除非指令绑定的事件等等...'
-
-    beforeDestroy: function () {
-
-    },
-
-    //组件的数据绑定、监听...都去掉了,只剩下dom空壳，这里也可以善后'
-
-    destroyed: function () {
-
-
-    },
-
-    //主要用于监控vue实例的变化，它监控的变量当然必须在data里面声明才可以，
-    // 它可以监控一个变量，也可以是一个对象，
-    //只能监控整个对象或单个变量
-    //一般用于监控路由、input输入框的值特殊处理等等，它比较适合的场景是一个数据影响多个数据
-    //一个数据影响很多数据
-
-    watch: {
-        firstName: function (val) {
-            this.fullName = val + ' ' + this.lastName
-        },
-        lastName: function (val) {
-            this.fullName = this.firstName + ' ' + val
-        }
     },
 
 
-    methods: {                     // 定义方法，用于事件交互时使用的函数
+
+    methods: {
 
         //根据屏幕设置div高度
         setDivHeight: () => {
@@ -275,7 +200,6 @@ var vm = new Vue({                  //创建Vue 实例
             this.$refs.form4.validate((valid) => {
                 if (valid) {
 
-
                 } else {
                     return this.$message.warning("信息填写不正确");
                     return false
@@ -289,8 +213,48 @@ var vm = new Vue({                  //创建Vue 实例
 
         //显示添加关联项目
         showAddGL(){
+            this.addRwVisible=true;
 
         },
+
+        //进行项目关联
+        doSavePzAdd(){
+
+        },
+
+        //选择那个一个
+        selectList(val) {
+            this.val = val;
+            if (val.length) {
+                let data = [];
+                for (let i = 0; i < val.length; i++) {
+                    let a = val[i].ID;
+                    data.push(a)
+                }
+                this.listData = data;
+
+            } else {
+                this.listData = [];
+
+            }
+        },
+
+        //列表全部选择
+        selectAll(val) {
+            this.selectList(val)
+        },
+
+        //选择改变
+        selectionChange(val) {
+            this.selectList(val)
+        },
+
+
+
+
+
+
+
 
 
         //显示添加项目
@@ -339,9 +303,20 @@ var vm = new Vue({                  //创建Vue 实例
                     return false
                 });
 
-            } else if (this.activeName === "second") {
+            }
+            else if (this.activeName === "second") {
 
-            } else if (this.activeName === "third") {
+            }
+            else if (this.activeName === "third") {
+
+                this.$refs.form5.validate((valid) => {
+                    if (valid) {
+
+                    } else {
+                        return this.$message.warning("信息填写不正确");
+                        return false
+                    }
+                });
 
             } else if (this.activeName === "fourth") {
 

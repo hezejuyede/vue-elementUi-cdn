@@ -311,12 +311,12 @@
                 </el-tab-pane>
                 <el-tab-pane label="宝箱配置" name="third">
                      <div class="main-table-top">
-                         <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules" style="width: 70%;margin: 0 auto">
-                             <el-form-item label="宝箱兑换值：" prop="CONSIGNEE_NAME">
-                                 <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 80%" placeholder="标题名称"></el-input>
+                         <el-form ref="form5" label-width="150px" :model="ruleForm" :rules="rules" style="width: 70%;margin: 0 auto">
+                             <el-form-item label="宝箱兑换值：" prop="BXDHZ">
+                                 <el-input v-model="ruleForm.BXDHZ" style="width: 80%" placeholder="宝箱兑换值"></el-input>
                              </el-form-item>
-                             <el-form-item label="兑换宝箱不足提示：" prop="CONSIGNEE_NAME" >
-                                 <el-input v-model="ruleForm.CONSIGNEE_NAME"
+                             <el-form-item label="兑换宝箱不足提示：" prop="DHBXBZTS" >
+                                 <el-input v-model="ruleForm.DHBXBZTS"
                                            type="textarea"
                                            :rows="5"
                                            style="width: 80%" placeholder="兑换宝箱不足提示"></el-input>
@@ -331,7 +331,7 @@
                     <div class="main-table clearfix">
                         <el-table class="tb-edit"
                                   :data="tablesGL"
-                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :header-cell-style="{background:'#f0f0f0'}"
                                   :cell-style="{fontSize:'12px'}"
                                   border
                                   :height="300"
@@ -510,8 +510,8 @@
                     <div class="">签到</div>
                 </el-form-item>
                 <el-form-item label="任务奖励：" prop="RWJL">
-                    <el-input v-model="ruleForm.RWJL"  style="width: 200px"></el-input>
-                    <span>电能值</span>
+                    <el-input v-model="ruleForm.RWJL"  style="width: 150px"></el-input>
+                    <span style="margin-left: 10px">电能值</span>
                 </el-form-item>
             </el-form>
 
@@ -520,6 +520,72 @@
         <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
             <el-button @click="doSavePz" type="primary">确定</el-button>
             <el-button @click="rwVisible = false">取消</el-button>
+        </span>
+    </el-dialog>
+
+    <!-- 任务配置弹出框 -->
+    <el-dialog title="任务选择" :visible.sync="addRwVisible" width=40% :center="true" :close-on-click-modal="false" :show-close="true">
+        <div class="" style="height: 500px">
+            <div class="main-title clearfix">
+                <label class="main-title-search fl">
+                    <el-input v-model="ruleForm.RWJL"  style="width: 150px"></el-input>
+                </label>
+                <label class="main-title-search fl">
+                    <el-button type="primary" icon="el-icon-plus" @click="showAddWD">查询</el-button>
+                    <el-button icon="el-icon-plus" @click="showAddWD">重置</el-button>
+                </label>
+            </div>
+            <div class="main-table clearfix">
+                <el-table class="tb-edit"
+                          :data="tables"
+                          :header-cell-style="{background:'#f0f0f0'}"
+                          :cell-style="{fontSize:'12px'}"
+                          @select="selectList"
+                          @select-all="selectAll"
+                          @selection-change="selectionChange"
+                          border
+                          :height="350"
+                          id="rebateSetTable"
+                          ref="moviesTable"
+                          highlight-current-row
+                          style="width: 98%;margin: auto">
+                    <el-table-column
+                            type="selection"
+                            align="center"
+                            width="40">
+                    </el-table-column>
+
+                    <el-table-column
+                            prop="MONEY2"
+                            align="center"
+                            label="任务名称">
+                    </el-table-column>
+
+                    <el-table-column
+                            prop="MONEY"
+                            label="任务说明"
+                            align="center"
+                            width="250">
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="main-page clearfix">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10,50,100, 150,200,250,300]"
+                        :page-size="mrPage"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="countSize">
+                </el-pagination>
+            </div>
+
+        </div>
+
+        <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
+            <el-button @click="doSavePzAdd" type="primary">确定</el-button>
+            <el-button @click="addRwVisible = false">取消</el-button>
         </span>
     </el-dialog>
 
