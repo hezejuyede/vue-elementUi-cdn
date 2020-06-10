@@ -325,7 +325,6 @@
                                  <el-button type="primary" @click="showAddGL">添加任务</el-button>
                                  <span style="color: #999999;margin-left: 10px">兑换宝箱积分不足时，关联任务设置</span>
                              </el-form-item>
-
                          </el-form>
                      </div>
                     <div class="main-table clearfix">
@@ -361,7 +360,7 @@
                                     label="操作"
                                     width="250">
                                 <template slot-scope="scope">
-                                    <span @click="showDelete(scope.row)"
+                                    <span @click="showDeleteRW(scope.row)"
                                           style="color: #d93f30;cursor: pointer">删除</span>
                                 </template>
                             </el-table-column>
