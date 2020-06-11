@@ -33,13 +33,13 @@ var vm = new Vue({                  //创建Vue 实例
             subjectBT:"",
             subjectBZ:"",
             subjectXXMS:"",
-            XXNR:[
-                {"id": 1, "text": "A", "number": ""},
-                {"id": 2, "text": "B", "number": ""},
-                {"id": 3, "text": "C", "number": ""},
-                {"id": 4, "text": "D", "number": ""},
-                {"id": 5, "text": "E", "number": ""},
-                {"id": 6, "text": "F", "number": ""},
+            XXNR: [
+                {"id": 1, "text": "A", "NR": "", "ZQ": "", "ZS": ""},
+                {"id": 2, "text": "B", "NR": "", "ZQ": "", "ZS": ""},
+                {"id": 3, "text": "C", "NR": "", "ZQ": "", "ZS": ""},
+                {"id": 4, "text": "D", "NR": "", "ZQ": "", "ZS": ""},
+                {"id": 5, "text": "E", "NR": "", "ZQ": "", "ZS": ""},
+                {"id": 6, "text": "F", "NR": "", "ZQ": "", "ZS": ""},
             ],
 
         },
@@ -431,6 +431,19 @@ var vm = new Vue({                  //创建Vue 实例
 
         //显示删除问答
         showDeleteWD() {
+
+        },
+        //获取选中数据
+        getTemplateRow(index, row) {
+            for (let i = 0; i < this.ruleForm.XXNR.length; i++) {
+                if (this.ruleForm.XXNR[i].id === row.id) {
+                    this.ruleForm.XXNR[i].ZQ = "1";
+                }
+                else {
+                    this.ruleForm.XXNR[i].ZQ = "";
+                }
+
+            }
 
         },
 

@@ -774,20 +774,26 @@
                                 label="选项内容">
                             <template slot-scope="scope">
                                 <span style="margin-right: 10px;font-size: 20px;color: #F56C6C">{{scope.row.text}}</span>
-                                <el-input style="width:300px" v-model="scope.row.number"
+                                <el-input style="width:300px" v-model="scope.row.NR"
                                           placeholder="选项内容，50个字以内"></el-input>
                             </template>
                         </el-table-column>
                         <el-table-column label="正确答案" align="center" width="80">
                             <template scope="scope">
-                                <el-radio :label="scope.row.id" v-model="radio">&nbsp</el-radio>
+                                <el-radio
+                                        :label="scope.row.id"
+                                        v-model="radio"
+                                        @change.native="getTemplateRow(scope.$index,scope.row)">&nbsp</el-radio>
                             </template>
                         </el-table-column>
                         <el-table-column
                                 align="center"
                                 label="答案注释">
                             <template slot-scope="scope">
-                                <el-input style="width:300px" v-model="scope.row.number" placeholder="答案注释"></el-input>
+                                <el-input style="width:300px"
+                                          v-if="scope.row.ZQ==='1'"
+                                          v-model="scope.row.ZS"
+                                          placeholder="答案注释"></el-input>
                             </template>
                         </el-table-column>
                         <el-table-column
