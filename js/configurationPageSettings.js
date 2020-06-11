@@ -12,7 +12,7 @@ var vm = new Vue({                  //创建Vue 实例
         ],
 
 
-        activeName: "fourth",
+        activeName: "fifth",
         ruleForm: {
             csTimeType: "1",
             csTimes: "",
@@ -27,6 +27,18 @@ var vm = new Vue({                  //创建Vue 实例
             DHBXBZTS:"",
             XZXM:"",
             QJSL:"",
+
+
+            subjectType:"",
+            subjectBT:"",
+            subjectBZ:"",
+            subjectXXMS:"",
+            XXNR:[
+                {"id": 1, "text": "A", "number": ""},
+                {"id": 2, "text": "B", "number": ""},
+                {"id": 3, "text": "C", "number": ""},
+                {"id": 4, "text": "D", "number": ""},
+            ],
 
         },
         rules: {
@@ -77,6 +89,22 @@ var vm = new Vue({                  //创建Vue 实例
                 {pattern: /^\+?[1-9][0-9]*$/, message: '格式不正确'}
             ],
 
+            subjectType:[
+                {required: true, message: '请选择项目', trigger: 'change'},
+            ],
+            subjectBT:[
+                {required: true, message: '请输入题目备注', trigger: 'blur'},
+                {min: 2, max: 100, message: '至少输入两个字'}
+            ],
+            subjectBZ:[
+                {required: true, message: '请输入详细描述', trigger: 'blur'},
+                {min: 2, max: 500, message: '至少输入两个字'}
+            ],
+            subjectXXMS:"",
+
+
+
+
         },
 
 
@@ -120,6 +148,15 @@ var vm = new Vue({                  //创建Vue 实例
         seeJZVisible: false,
         addJZVisible: false,
         editJZVisible: false,
+
+
+
+
+        //问卷管理
+        seeWJVisible: false,
+        addWJVisible: false,
+        editWJVisible: false,
+        radio:"",
 
 
 
@@ -353,13 +390,46 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
-
-
-
         //显示添加问答
         showAddWD() {
+            this.addWJVisible = true;
 
         },
+
+        //查看问答
+        seeClickWD() {
+
+        },
+
+        //显示编辑问答
+        editClickWD() {
+
+        },
+
+
+        //显示删除问答
+        showDeleteWD() {
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         editClick() {
@@ -410,7 +480,9 @@ var vm = new Vue({                  //创建Vue 实例
                     }
                 });
 
-            } else if (this.activeName === "fourth") {
+            }
+
+            else if (this.activeName === "fourth") {
 
             } else if (this.activeName === "fifth") {
 
@@ -418,10 +490,19 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
+
+
+
+
+
         //取消
         doCancel() {
             window.history.go(-1)
         },
+
+
+
+
 
 
         //显示数据改变

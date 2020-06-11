@@ -77,6 +77,29 @@
         .el-dialog{
             border-radius: 10px;
         }
+        .changePXDiv{
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .changePX{
+            width: 30px;
+            height: 30px;
+            line-height: 50px;
+            border-radius: 50%;
+            border:1px solid #f0f0f0 ;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 16px;
+
+        }
 
     </style>
 
@@ -470,11 +493,11 @@
                                     label="操作"
                                     width="250">
                                 <template slot-scope="scope">
-                                    <span @click="editClick(scope.row)"
+                                    <span @click="seeClickWD(scope.row)"
                                           style="color: #409EFF;cursor: pointer;margin-right: 20px">查看</span>
-                                    <span @click="editClick(scope.row)"
+                                    <span @click="editClickWD(scope.row)"
                                           style="color: #409EFF;cursor: pointer;margin-right: 20px">编辑</span>
-                                    <span @click="showDelete(scope.row)"
+                                    <span @click="showDeleteWD(scope.row)"
                                           style="color: #d93f30;cursor: pointer">删除</span>
                                 </template>
                             </el-table-column>
@@ -646,6 +669,167 @@
                :show-close="true">
         <div class="" style="height: 200px">
             <el-form ref="form6" label-width="150px" :model="ruleForm" :rules="rules">
+                <el-form-item label="选择项目：" prop="XZXM">
+                    <el-select
+                            style="width: 250px"
+                            v-model="ruleForm.XZXM"
+                            clearable
+                            filterable
+                            allow-create
+                            disabled
+                            default-first-option
+                            placeholder="请选择类型">
+                        <el-option
+                                v-for="item in typesOptions"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="起捐数量：" prop="QJSL">
+                    <el-input v-model="ruleForm.QJSL" style="width: 250px"></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+
+        <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
+            <el-button @click="doEditJZ" type="primary">确定</el-button>
+            <el-button @click="editJZVisible = false">取消</el-button>
+        </span>
+    </el-dialog>
+
+
+
+
+    <!-- 查看捐赠项目 -->
+    <el-dialog title="查看问答" :visible.sync="seeWJVisible" width=40% :center="true" :close-on-click-modal="false"
+               :show-close="true">
+        <div class="" style="height: 200px">
+            <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
+                <el-form-item label="选择项目：" prop="XZXM">
+                    <el-input v-model="ruleForm.XZXM" style="width: 250px" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="起捐数量：" prop="QJSL">
+                    <el-input v-model="ruleForm.QJSL" style="width: 250px" :disabled="true"></el-input>
+                </el-form-item>
+            </el-form>
+
+        </div>
+    </el-dialog>
+
+    <!-- 新增捐赠项目 -->
+    <el-dialog title="新增问答" :visible.sync="addWJVisible" width=90% :center="true" :close-on-click-modal="false"
+               :show-close="true">
+        <div class="" style="height: 400px ;overflow: auto" >
+            <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
+                <el-form-item label="题目类型：" prop="subjectType">
+                    <el-select
+                            style="width: 80%"
+                            v-model="ruleForm.subjectType"
+                            clearable
+                            filterable
+                            allow-create
+                            default-first-option
+                            placeholder="请选择类型">
+                        <el-option
+                                v-for="item in typesOptions"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="题目标题：" prop="subjectBT">
+                    <el-input v-model="ruleForm.subjectBT" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目备注：" prop="subjectBZ">
+                    <el-input v-model="ruleForm.subjectBZ" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目详细描述：" prop="subjectXXMS">
+                    <el-input v-model="ruleForm.subjectXXMS" style="width: 80%"  type="textarea" :rows="10"></el-input>
+                </el-form-item>
+                <el-form-item label="选项内容：" prop="XXNR">
+                    <el-table
+                            :data="ruleForm.XXNR"
+                            :cell-style="{fontSize:'12px'}"
+                            border
+                            :height="270"
+                            highlight-current-row
+                            style="width: 80%">
+                        <el-table-column
+                                prop="text"
+                                align="center"
+                                label="选项内容">
+                            <template slot-scope="scope">
+                                 <span>{{scope.row.text}}</span>
+                                <el-input style="width:180px"  v-model="scope.row.number" placeholder="选项内容，50个字以内"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="附加填空"
+                                width="120">
+                            <template slot-scope="scope">
+                                <div class="changePXDiv">
+                                    <div class="changePX">
+                                        <i class="el-icon-circle-plus-outline"></i>
+                                    </div>
+                                    <div class="changePX">
+                                        <i class="el-icon-remove-outline "></i>
+                                    </div>
+                                </div>
+
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="正确答案"  align="center" width="80">
+                            <template scope="scope">
+                                <el-radio  :label="scope.row.id" v-model="radio" >&nbsp</el-radio>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="答案注释">
+                            <template slot-scope="scope">
+                                <el-input style="width:180px"  v-model="scope.row.number" placeholder="答案注释"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="排序"
+                                width="120">
+                            <template slot-scope="scope">
+
+                                <div class="changePXDiv">
+                                    <div class="changePX">
+                                        <i class="el-icon-bottom "></i>
+                                    </div>
+                                    <div class="changePX">
+                                        <i class="el-icon-top "></i>
+                                    </div>
+                                </div>
+
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-form-item>
+            </el-form>
+
+        </div>
+
+        <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
+            <el-button @click="doAddJZ" type="primary">新增</el-button>
+            <el-button @click="addJZVisible = false">取消</el-button>
+        </span>
+    </el-dialog>
+
+
+    <!-- 编辑捐赠项目 -->
+    <el-dialog title="编辑问答" :visible.sync="editWJVisible" width=40% :center="true" :close-on-click-modal="false"
+               :show-close="true">
+        <div class="" style="height: 200px">
+            <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
                 <el-form-item label="选择项目：" prop="XZXM">
                     <el-select
                             style="width: 250px"
