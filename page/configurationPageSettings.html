@@ -31,19 +31,20 @@
     <![endif]-->
     <style>
 
-        .elHeader{
+        .elHeader {
             height: 100px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             padding-left: 50px;
         }
-        .main-title{
+
+        .main-title {
             padding-left: 2%;
             height: 80px;
         }
 
-        .main-title-search{
+        .main-title-search {
             margin-top: 10px;
             margin-right: 50px;
         }
@@ -56,7 +57,7 @@
             margin-bottom: 10px
         }
 
-        .el-btn{
+        .el-btn {
             height: 80px;
             display: flex;
             align-items: center;
@@ -64,20 +65,21 @@
 
         }
 
-        .play-setTings{
+        .play-setTings {
             width: 100%;
 
         }
 
-        .play-setTings-title{
+        .play-setTings-title {
             font-size: 16px;
             font-weight: bold;
         }
 
-        .el-dialog{
+        .el-dialog {
             border-radius: 10px;
         }
-        .changePXDiv{
+
+        .changePXDiv {
             width: 100%;
             height: 40px;
             display: flex;
@@ -87,11 +89,11 @@
 
         }
 
-        .changePX{
+        .changePX {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border:1px solid #f0f0f0 ;
+            border: 1px solid #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -103,12 +105,20 @@
 
         }
 
-        .el-radio__inner{
+        .operationDiv {
+            width: 300px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .wJVisible .el-radio__inner {
             width: 30px;
             height: 30px;
         }
 
-        .el-radio__inner::after{
+        .wJVisible .el-radio__inner::after {
             width: 10px;
             height: 10px;
         }
@@ -140,19 +150,19 @@
                         <div class="play-setTings-title">
                             收获配置
                         </div>
-                        <el-form    ref="form1" label-width="150px" :model="ruleForm" :rules="rules">
-                            <el-form-item label="成熟时间："  prop="csTimeType" required>
+                        <el-form ref="form1" label-width="150px" :model="ruleForm" :rules="rules">
+                            <el-form-item label="成熟时间：" prop="csTimeType" required>
                                 <el-radio v-model="ruleForm.csTimeType" label="1" border>全局</el-radio>
                                 <el-radio v-model="ruleForm.csTimeType" label="2" border>定制</el-radio>
                             </el-form-item>
-                            <el-form-item style="margin-top: 10px"   prop="csTimes" v-if="ruleForm.csTimeType==='1'">
+                            <el-form-item style="margin-top: 10px" prop="csTimes" v-if="ruleForm.csTimeType==='1'">
                                 <el-input
                                         v-model="ruleForm.csTimes"
                                         style="width: 300px"
                                         placeholder="设定全局时间"></el-input>
                                 <span>分</span>
                             </el-form-item>
-                            <el-form-item style="margin-top: 10px"  v-if="ruleForm.csTimeType==='2'">
+                            <el-form-item style="margin-top: 10px" v-if="ruleForm.csTimeType==='2'">
                                 <el-table
                                         :data="playTable1"
                                         :cell-style="{fontSize:'12px'}"
@@ -169,16 +179,13 @@
                                             align="center"
                                             label="收取时间（分）">
                                         <template slot-scope="scope">
-                                            <el-input style="width:150px"  v-model="scope.row.number" placeholder="收取时间（分）"></el-input>
+                                            <el-input style="width:150px" v-model="scope.row.number"
+                                                      placeholder="收取时间（分）"></el-input>
                                         </template>
 
                                     </el-table-column>
                                 </el-table>
                             </el-form-item>
-
-
-
-
 
 
                         </el-form>
@@ -188,8 +195,8 @@
                             偷取配置
                         </div>
                         <el-form ref="form2" label-width="150px" :model="ruleForm" :rules="rules">
-                            <el-form-item label="偷取电能上限" >
-                                <el-input v-model="ruleForm.TQSX"  style="width: 300px"></el-input>
+                            <el-form-item label="偷取电能上限">
+                                <el-input v-model="ruleForm.TQSX" style="width: 300px"></el-input>
                                 <div class="" style="color: #999999">为“空”则不限制</div>
                             </el-form-item>
                             <el-form-item label="偷取电能范围：" prop="DNFW">
@@ -261,7 +268,8 @@
 
                             </el-form-item>
                             <el-form-item style="margin-top: 10px" prop="BTQSXQJ" v-if="ruleForm.BTQSX==='1'">
-                                <el-input v-model="ruleForm.BTQSXQJ" style="width: 300px" placeholder="全局被偷取上限"></el-input>
+                                <el-input v-model="ruleForm.BTQSXQJ" style="width: 300px"
+                                          placeholder="全局被偷取上限"></el-input>
                                 <div class="" style="color: #999999">每个任务可收获电能的偷取上限</div>
                             </el-form-item>
                             <el-form-item style="margin-top: 10px" required v-if="ruleForm.BTQSX==='2'">
@@ -282,7 +290,8 @@
                                             align="center"
                                             label="被偷取上限">
                                         <template slot-scope="scope">
-                                            <el-input v-model="scope.row.number" style="width: 150px" placeholder="被偷取上限"></el-input>
+                                            <el-input v-model="scope.row.number" style="width: 150px"
+                                                      placeholder="被偷取上限"></el-input>
                                         </template>
                                     </el-table-column>
                                 </el-table>
@@ -345,23 +354,24 @@
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="宝箱配置" name="third">
-                     <div class="main-table-top">
-                         <el-form ref="form5" label-width="150px" :model="ruleForm" :rules="rules" style="width: 70%;margin: 0 auto">
-                             <el-form-item label="宝箱兑换值：" prop="BXDHZ">
-                                 <el-input v-model="ruleForm.BXDHZ" style="width: 80%" placeholder="宝箱兑换值"></el-input>
-                             </el-form-item>
-                             <el-form-item label="兑换宝箱不足提示：" prop="DHBXBZTS" >
-                                 <el-input v-model="ruleForm.DHBXBZTS"
-                                           type="textarea"
-                                           :rows="5"
-                                           style="width: 80%" placeholder="兑换宝箱不足提示"></el-input>
-                             </el-form-item>
-                             <el-form-item label="关联任务" >
-                                 <el-button type="primary" @click="showAddGL">添加任务</el-button>
-                                 <span style="color: #999999;margin-left: 10px">兑换宝箱积分不足时，关联任务设置</span>
-                             </el-form-item>
-                         </el-form>
-                     </div>
+                    <div class="main-table-top">
+                        <el-form ref="form5" label-width="150px" :model="ruleForm" :rules="rules"
+                                 style="width: 70%;margin: 0 auto">
+                            <el-form-item label="宝箱兑换值：" prop="BXDHZ">
+                                <el-input v-model="ruleForm.BXDHZ" style="width: 80%" placeholder="宝箱兑换值"></el-input>
+                            </el-form-item>
+                            <el-form-item label="兑换宝箱不足提示：" prop="DHBXBZTS">
+                                <el-input v-model="ruleForm.DHBXBZTS"
+                                          type="textarea"
+                                          :rows="5"
+                                          style="width: 80%" placeholder="兑换宝箱不足提示"></el-input>
+                            </el-form-item>
+                            <el-form-item label="关联任务">
+                                <el-button type="primary" @click="showAddGL">添加任务</el-button>
+                                <span style="color: #999999;margin-left: 10px">兑换宝箱积分不足时，关联任务设置</span>
+                            </el-form-item>
+                        </el-form>
+                    </div>
                     <div class="main-table clearfix">
                         <el-table class="tb-edit"
                                   :data="tablesGL"
@@ -401,7 +411,6 @@
                             </el-table-column>
                         </el-table>
                     </div>
-
 
 
                 </el-tab-pane>
@@ -537,14 +546,15 @@
     </el-container>
 
     <!-- 任务配置弹出框 -->
-    <el-dialog title="任务配置" :visible.sync="rwVisible" width=40% :center="true" :close-on-click-modal="false" :show-close="true">
+    <el-dialog title="任务配置" :visible.sync="rwVisible" width=40% :center="true" :close-on-click-modal="false"
+               :show-close="true">
         <div class="" style="height: 200px">
             <el-form ref="form4" label-width="150px" :model="ruleForm" :rules="rules">
-                <el-form-item label="任务名称：" >
+                <el-form-item label="任务名称：">
                     <div class="">签到</div>
                 </el-form-item>
                 <el-form-item label="任务奖励：" prop="RWJL">
-                    <el-input v-model="ruleForm.RWJL"  style="width: 150px"></el-input>
+                    <el-input v-model="ruleForm.RWJL" style="width: 150px"></el-input>
                     <span style="margin-left: 10px">电能值</span>
                 </el-form-item>
             </el-form>
@@ -558,11 +568,12 @@
     </el-dialog>
 
     <!-- 任务配置弹出框 -->
-    <el-dialog title="任务选择" :visible.sync="addRwVisible" width=40% :center="true" :close-on-click-modal="false" :show-close="true">
+    <el-dialog title="任务选择" :visible.sync="addRwVisible" width=40% :center="true" :close-on-click-modal="false"
+               :show-close="true">
         <div class="" style="height: 500px">
             <div class="main-title clearfix">
                 <label class="main-title-search fl">
-                    <el-input v-model="ruleForm.RWJL"  style="width: 150px"></el-input>
+                    <el-input v-model="ruleForm.RWJL" style="width: 150px"></el-input>
                 </label>
                 <label class="main-title-search fl">
                     <el-button type="primary" icon="el-icon-plus" @click="showAddWD">查询</el-button>
@@ -714,25 +725,9 @@
 
 
     <!-- 查看问答 -->
-    <el-dialog title="查看问答" :visible.sync="seeWJVisible" width=40% :center="true" :close-on-click-modal="false"
+    <el-dialog title="查看问答" :visible.sync="seeWJVisible" :fullscreen="true" :center="true" :close-on-click-modal="false"
                :show-close="true">
-        <div class="" style="height: 200px">
-            <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
-                <el-form-item label="选择项目：" prop="XZXM">
-                    <el-input v-model="ruleForm.XZXM" style="width: 250px" :disabled="true"></el-input>
-                </el-form-item>
-                <el-form-item label="起捐数量：" prop="QJSL">
-                    <el-input v-model="ruleForm.QJSL" style="width: 250px" :disabled="true"></el-input>
-                </el-form-item>
-            </el-form>
-
-        </div>
-    </el-dialog>
-
-    <!-- 新增问答 -->
-    <el-dialog title="新增问答" :visible.sync="addWJVisible" width=90% :center="true" :fullscreen="true" :close-on-click-modal="false"
-               :show-close="true">
-        <div class="" style="overflow: auto" ref="WJVisible">
+        <div class="wJVisible" style="overflow: auto" ref="WJVisible">
             <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
                 <el-form-item label="题目类型：" prop="subjectType">
                     <el-select
@@ -761,6 +756,18 @@
                     <el-input v-model="ruleForm.subjectXXMS" style="width: 80%" type="textarea" :rows="10"></el-input>
                 </el-form-item>
                 <el-form-item label="选项内容：" prop="XXNR">
+                    <div class="operationDiv">
+                        <label>
+                            <span>新增选项</span>
+                            <span>:</span>
+                            <el-button type="primary" icon="el-icon-plus" circle @click="addXX"></el-button>
+                        </label>
+                        <label style="margin-left: 50px">
+                            <span>删除选项</span>
+                            <span>:</span>
+                            <el-button type="danger" icon="el-icon-minus" circle @click="deleteXX"></el-button>
+                        </label>
+                    </div>
                     <el-table
                             :data="ruleForm.XXNR"
                             :cell-style="{fontSize:'12px'}"
@@ -783,7 +790,8 @@
                                 <el-radio
                                         :label="scope.row.id"
                                         v-model="radio"
-                                        @change.native="getTemplateRow(scope.$index,scope.row)">&nbsp</el-radio>
+                                        @change.native="getTemplateRow(scope.$index,scope.row)">&nbsp
+                                </el-radio>
                             </template>
                         </el-table-column>
                         <el-table-column
@@ -803,7 +811,111 @@
                             <template slot-scope="scope">
 
                                 <div class="changePXDiv">
-                                    <div class="changePX"  @click="changeBottom(scope.row)">
+                                    <div class="changePX" @click="changeBottom(scope.row)">
+                                        <i class="el-icon-bottom"></i>
+                                    </div>
+                                    <div class="changePX" @click="changeTop(scope.row)">
+                                        <i class="el-icon-top"></i>
+                                    </div>
+                                </div>
+
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-form-item>
+            </el-form>
+
+        </div>
+    </el-dialog>
+
+    <!-- 新增问答 -->
+    <el-dialog title="新增问答" :visible.sync="addWJVisible" :center="true" :fullscreen="true" :close-on-click-modal="false"
+               :show-close="true">
+        <div class="wJVisible" style="overflow: auto" ref="WJVisible">
+            <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
+                <el-form-item label="题目类型：" prop="subjectType">
+                    <el-select
+                            style="width: 80%"
+                            v-model="ruleForm.subjectType"
+                            clearable
+                            filterable
+                            allow-create
+                            default-first-option
+                            placeholder="请选择类型">
+                        <el-option
+                                v-for="item in typesOptions"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="题目标题：" prop="subjectBT">
+                    <el-input v-model="ruleForm.subjectBT" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目备注：" prop="subjectBZ">
+                    <el-input v-model="ruleForm.subjectBZ" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目详细描述：" prop="subjectXXMS">
+                    <el-input v-model="ruleForm.subjectXXMS" style="width: 80%" type="textarea" :rows="10"></el-input>
+                </el-form-item>
+                <el-form-item label="选项内容：" prop="XXNR">
+                    <div class="operationDiv">
+                        <label>
+                            <span>新增选项</span>
+                            <span>:</span>
+                            <el-button type="primary" icon="el-icon-plus" circle @click="addXX"></el-button>
+                        </label>
+                        <label style="margin-left: 50px">
+                            <span>删除选项</span>
+                            <span>:</span>
+                            <el-button type="danger" icon="el-icon-minus" circle @click="deleteXX"></el-button>
+                        </label>
+                    </div>
+                    <el-table
+                            :data="ruleForm.XXNR"
+                            :cell-style="{fontSize:'12px'}"
+                            border
+                            :height="500"
+                            highlight-current-row
+                            style="width: 80%">
+                        <el-table-column
+                                prop="text"
+                                align="center"
+                                label="选项内容">
+                            <template slot-scope="scope">
+                                <span style="margin-right: 10px;font-size: 20px;color: #F56C6C">{{scope.row.text}}</span>
+                                <el-input style="width:300px" v-model="scope.row.NR"
+                                          placeholder="选项内容，50个字以内"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="正确答案" align="center" width="80">
+                            <template scope="scope">
+                                <el-radio
+                                        :label="scope.row.id"
+                                        v-model="radio"
+                                        @change.native="getTemplateRow(scope.$index,scope.row)">&nbsp
+                                </el-radio>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="答案注释">
+                            <template slot-scope="scope">
+                                <el-input style="width:300px"
+                                          v-if="scope.row.ZQ==='1'"
+                                          v-model="scope.row.ZS"
+                                          placeholder="答案注释"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="排序"
+                                width="120">
+                            <template slot-scope="scope">
+
+                                <div class="changePXDiv">
+                                    <div class="changePX" @click="changeBottom(scope.row)">
                                         <i class="el-icon-bottom"></i>
                                     </div>
                                     <div class="changePX" @click="changeTop(scope.row)">
@@ -827,18 +939,18 @@
 
 
     <!-- 编辑问答 -->
-    <el-dialog title="编辑问答" :visible.sync="editWJVisible" width=40% :center="true" :close-on-click-modal="false"
+    <el-dialog title="编辑问答" :visible.sync="editWJVisible" :fullscreen="true" :center="true"
+               :close-on-click-modal="false"
                :show-close="true">
-        <div class="" style="height: 200px">
+        <div class="wJVisible" style="overflow: auto" ref="WJVisible">
             <el-form ref="form7" label-width="150px" :model="ruleForm" :rules="rules">
-                <el-form-item label="选择项目：" prop="XZXM">
+                <el-form-item label="题目类型：" prop="subjectType">
                     <el-select
-                            style="width: 250px"
-                            v-model="ruleForm.XZXM"
+                            style="width: 80%"
+                            v-model="ruleForm.subjectType"
                             clearable
                             filterable
                             allow-create
-                            disabled
                             default-first-option
                             placeholder="请选择类型">
                         <el-option
@@ -849,8 +961,82 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="起捐数量：" prop="QJSL">
-                    <el-input v-model="ruleForm.QJSL" style="width: 250px"></el-input>
+                <el-form-item label="题目标题：" prop="subjectBT">
+                    <el-input v-model="ruleForm.subjectBT" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目备注：" prop="subjectBZ">
+                    <el-input v-model="ruleForm.subjectBZ" style="width: 80%"></el-input>
+                </el-form-item>
+                <el-form-item label="题目详细描述：" prop="subjectXXMS">
+                    <el-input v-model="ruleForm.subjectXXMS" style="width: 80%" type="textarea" :rows="10"></el-input>
+                </el-form-item>
+                <el-form-item label="选项内容：" prop="XXNR">
+                    <div class="operationDiv">
+                        <label>
+                            <span>新增选项</span>
+                            <span>:</span>
+                            <el-button type="primary" icon="el-icon-plus" circle @click="addXX"></el-button>
+                        </label>
+                        <label style="margin-left: 50px">
+                            <span>删除选项</span>
+                            <span>:</span>
+                            <el-button type="danger" icon="el-icon-minus" circle @click="deleteXX"></el-button>
+                        </label>
+                    </div>
+                    <el-table
+                            :data="ruleForm.XXNR"
+                            :cell-style="{fontSize:'12px'}"
+                            border
+                            :height="500"
+                            highlight-current-row
+                            style="width: 80%">
+                        <el-table-column
+                                prop="text"
+                                align="center"
+                                label="选项内容">
+                            <template slot-scope="scope">
+                                <span style="margin-right: 10px;font-size: 20px;color: #F56C6C">{{scope.row.text}}</span>
+                                <el-input style="width:300px" v-model="scope.row.NR"
+                                          placeholder="选项内容，50个字以内"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="正确答案" align="center" width="80">
+                            <template scope="scope">
+                                <el-radio
+                                        :label="scope.row.id"
+                                        v-model="radio"
+                                        @change.native="getTemplateRow(scope.$index,scope.row)">&nbsp
+                                </el-radio>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="答案注释">
+                            <template slot-scope="scope">
+                                <el-input style="width:300px"
+                                          v-if="scope.row.ZQ==='1'"
+                                          v-model="scope.row.ZS"
+                                          placeholder="答案注释"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                                align="center"
+                                label="排序"
+                                width="120">
+                            <template slot-scope="scope">
+
+                                <div class="changePXDiv">
+                                    <div class="changePX" @click="changeBottom(scope.row)">
+                                        <i class="el-icon-bottom"></i>
+                                    </div>
+                                    <div class="changePX" @click="changeTop(scope.row)">
+                                        <i class="el-icon-top"></i>
+                                    </div>
+                                </div>
+
+                            </template>
+                        </el-table-column>
+                    </el-table>
                 </el-form-item>
             </el-form>
 

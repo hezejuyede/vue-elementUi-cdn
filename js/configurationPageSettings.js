@@ -415,12 +415,13 @@ var vm = new Vue({                  //创建Vue 实例
 
         //查看问答
         seeClickWD() {
+            this.seeWJVisible=true;
 
         },
 
         //显示编辑问答
         editClickWD() {
-
+            this.editWJVisible=true;
         },
 
         //进行问答编辑
@@ -430,9 +431,26 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         //显示删除问答
-        showDeleteWD() {
+        showDeleteWD(row) {
+            this.$confirm('', '确定删除？', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.doDeleteWD(row.id);
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+
+        //进行删除
+        doDeleteWD(id) {
 
         },
+
         //获取选中数据
         getTemplateRow(index, row) {
             for (let i = 0; i < this.ruleForm.XXNR.length; i++) {
@@ -475,6 +493,52 @@ var vm = new Vue({                  //创建Vue 实例
                 }
 
             }
+        },
+
+        //新增选择
+        addXX() {
+            let num = this.ruleForm.XXNR.length;
+            if (num === 2) {
+                let json = {"id": 3, "text": "C", "NR": "", "ZQ": "", "ZS": ""};
+                this.ruleForm.XXNR.push(json)
+            }
+            else if (num === 3) {
+                let json = {"id": 4, "text": "D", "NR": "", "ZQ": "", "ZS": ""};
+                this.ruleForm.XXNR.push(json)
+            }
+            else if (num === 4) {
+                let json = {"id": 5, "text": "E", "NR": "", "ZQ": "", "ZS": ""};
+                this.ruleForm.XXNR.push(json)
+            }
+            else if (num === 5) {
+                let json = {"id": 6, "text": "F", "NR": "", "ZQ": "", "ZS": ""};
+                this.ruleForm.XXNR.push(json)
+            }
+            else {
+                this.$message({
+                    type: 'warning',
+                    message: '最多只能添加6个选项'
+                });
+            }
+
+        },
+
+        //删除选项
+        deleteXX() {
+            let num = this.ruleForm.XXNR.length;
+            if(num>2){
+                this.ruleForm.XXNR.pop();
+            }
+            else {
+                this.$message({
+                    type: 'warning',
+                    message: '最少剩余2个选项'
+                });
+            }
+
+
+
+
         },
 
 
