@@ -1,7 +1,23 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        page: "/cdn-vue-elementUi/page/createPage.html",
+
+        userName:"",
+
+        listData:[
+            {},
+            {},
+            {},
+            {},
+        ],
+
+
+        currentPage: 1,
+        startIndex: 0,
+        mrPage: 10,
+        pageNum: Number,
+        countSize: 0,
+
 
         firstName: 'Foo',
         lastName: 'Bar',
@@ -18,6 +34,8 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
+
+        this.getTableList();
 
 
     },
@@ -103,39 +121,81 @@ var vm = new Vue({                  //创建Vue 实例
     methods: {                     // 定义方法，用于事件交互时使用的函数
 
         //根据屏幕设置div高度
-        setDivHeight: () => {
-            $(".elContainer").height(window.innerHeight);
+        setDivHeight() {
+            let h = window.innerHeight
+            $(".elContainer").height(h);
+            let div = this.$refs.mainTable;
+            div.style.height = (h - 250) + "px";
         },
 
-        //选择菜单执行的跳转
-        selectNav: (key, keyPath) => {
+        //查询
+        doSearch(){
 
-            if (key === "1-1-1") {
-                this.page="/cdn-vue-elementUi/page/configurationPage.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-
-            }
-            else if (key === "1-2-1") {
-                this.page="/cdn-vue-elementUi/page/createPage.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-3-1") {
-                this.page="/cdn-vue-elementUi/page/noticeList.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-4") {
-                this.page="/cdn-vue-elementUi/page/searchUserData.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
-            else if (key === "1-5") {
-                this.page="/cdn-vue-elementUi/page/gameDataStatistics.html"
-                document.getElementById("iframe").setAttribute("src",this.page);
-            }
+        },
 
 
+        //页面加载去请求的table
+        getTableList(){
+
+        },
 
 
+        //进行新增
 
+        doAdd() {
+
+            let page = "/cdn-vue-elementUi/page/createPage1.html";
+            window.location.href = page;
+
+        },
+
+
+        //进行编辑
+        editClick() {
+            let page = "/cdn-vue-elementUi/page/createPage1.html";
+            window.location.href = page;
+        },
+
+        //显示删除
+        showDelete() {
+
+            this.$confirm('删除后不和恢复', '确定删除', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+
+        },
+
+        //进行删除
+        doDelete() {
+
+
+        },
+
+
+        //分页显示数据改变
+        handleSizeChange(val) {
+            this.mrPage = val;
+            this.startIndex = (this.currentPage - 1) * this.mrPage;
+            this.getTableList();
+        },
+
+
+        //分页页面改变
+        handleCurrentChange(val) {
+            this.startIndex = (val - 1) * this.mrPage;
+            this.getTableList();
         },
 
 

@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge minimal-ui">
+    <!-- WebApp全屏模式：-->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- 是针对一些老的不识别viewport的浏览器，列如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <title>国家电网</title>
+    <link rel="stylesheet" href="../common/css/base.css">
+    <link rel="stylesheet" href="../common/css/element.css">
+    <!--[if IE]>
+    <script src="../common/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .elHeader{
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 50px;
+        }
+        .main-title{
+            height: 80px;
+        }
+
+        .main-title-search{
+            float: right;
+            margin-right: 50px;
+        }
+        .main-table{
+            overflow: auto;
+        }
+
+        .main-table-div{
+            width: 30%;
+            height: 200px;
+            border-radius: 10px;
+            float: left;
+            margin: 1.5%;
+
+        }
+
+        .one{
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .two{
+            width: 100%;
+            height: 200px;
+        }
+        .box-card-div{
+            width: 100%;
+            height: 160px;
+            display: flex;
+            position: relative;
+        }
+        .box-card-model{
+            width: 0;
+            height: 0;
+            border-top: 80px solid #848484;
+            border-right: 80px solid transparent;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            z-index: 99;
+
+        }
+        .box-card-model-text{
+            width: 50px;
+            height: 20px;
+            font-size: 14px;
+            transform: rotate(-45deg);
+            position: absolute;
+            top: -65px;
+            left: 2px;
+            color: #FFFFFF;
+
+        }
+
+        .box-card-left {
+            flex:1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-card-right {
+            flex: 2;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding-left: 10px;
+        }
+
+        .box-card-right div:first-child {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .box-card-right div:nth-child(2) {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 14px;
+        }
+
+        .box-card-right div:last-child {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-size: 14px;
+        }
+
+
+
+        .main-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            margin-bottom: 10px;
+
+        }
+
+
+        .el-dialog{
+            border-radius: 10px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+<div id="app">
+    <el-container class="elContainer"  ref="elContainer">
+        <el-header class="elHeader" style="text-align: right; font-size: 12px">
+
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item>游戏管理</el-breadcrumb-item>
+                <el-breadcrumb-item>爱心项目管理</el-breadcrumb-item>
+                <el-breadcrumb-item>爱心项目列表</el-breadcrumb-item>
+            </el-breadcrumb>
+
+        </el-header>
+
+        <el-main>
+            <div class="main-title clearfix">
+                <div class="main-title clearfix">
+                    <label class="main-title-search">
+                        <el-input v-model="userName" placeholder="请输入项目名称搜索" style="width: 300px"></el-input>
+                        <el-button  type="primary" icon="el-icon-search"  @click="doSearch">搜索</el-button>
+                    </label>
+                </div>
+            </div>
+            <div class="main-table clearfix" ref="mainTable">
+                <div class="main-table-div">
+                    <el-card class="box-card one">
+                        <label @click="doAdd">
+                            <el-button type="primary" icon="el-icon-plus" circle></el-button>
+                            <span  style="margin-left: 10px">新增</span>
+                        </label>
+                    </el-card>
+                </div>
+
+                <div class="main-table-div"  v-for="(item,index) in listData" :key="index">
+                    <el-card class="box-card two">
+                        <div class="box-card-div">
+                            <div class="box-card-model">
+                                <div class="box-card-model-text">进行中</div>
+                            </div>
+                            <div class="box-card-left">
+                                <el-image
+                                        style="width: 100px; height: 80px;border-radius:10px ;"
+                                        src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
+                                </el-image>
+                            </div>
+                            <div class="box-card-right">
+                                <div class="">
+                                    甘肃临夏康乐县光伏扶贫项目
+                                </div>
+                                <div class="">
+                                    <span>项目归属</span>
+                                    <span>：</span>
+                                    <span>赚电能游戏</span>
+                                </div>
+                                <div class="">
+                                    <span>项目时间</span>
+                                    <span>：</span>
+                                    <span>2020.01.01-2020.05.31</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </el-card>
+                </div>
+
+
+            </div>
+            <div class="main-page clearfix">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                        :page-sizes="[10,50,100, 150,200,250,300]"
+                        :page-size="mrPage"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="countSize">
+                </el-pagination>
+            </div>
+        </el-main>
+    </el-container>
+
+</div>
+
+
+<script src="../common/js/vue.min.js"></script>
+<script src="../common/js/element.js"></script>
+<script src="../common/js/jquery-3.1.1.min.js"></script>
+<script src="../js/createPage.js"></script>
+
+</body>
+</html>
+
