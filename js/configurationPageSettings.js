@@ -38,6 +38,8 @@ var vm = new Vue({                  //创建Vue 实例
                 {"id": 2, "text": "B", "number": ""},
                 {"id": 3, "text": "C", "number": ""},
                 {"id": 4, "text": "D", "number": ""},
+                {"id": 5, "text": "E", "number": ""},
+                {"id": 6, "text": "F", "number": ""},
             ],
 
         },
@@ -96,11 +98,7 @@ var vm = new Vue({                  //创建Vue 实例
                 {required: true, message: '请输入题目备注', trigger: 'blur'},
                 {min: 2, max: 100, message: '至少输入两个字'}
             ],
-            subjectBZ:[
-                {required: true, message: '请输入详细描述', trigger: 'blur'},
-                {min: 2, max: 500, message: '至少输入两个字'}
-            ],
-            subjectXXMS:"",
+
 
 
 
@@ -393,6 +391,25 @@ var vm = new Vue({                  //创建Vue 实例
         //显示添加问答
         showAddWD() {
             this.addWJVisible = true;
+            setTimeout(()=>{
+                this.setModelHeight();
+
+            },500)
+
+        },
+
+        //动态设置全屏弹框的高度
+        setModelHeight() {
+            let h = window.innerHeight;
+            let div = this.$refs.WJVisible;
+            div.style.height = (h - 200) + "px";
+
+        },
+
+
+        //添加问答
+        doAddWD() {
+
 
         },
 
@@ -406,11 +423,47 @@ var vm = new Vue({                  //创建Vue 实例
 
         },
 
+        //进行问答编辑
+        doEditWD() {
+
+        },
+
 
         //显示删除问答
         showDeleteWD() {
 
         },
+
+
+        //向下
+        changeBottom(row) {
+            for (let i = 0; i < this.ruleForm.XXNR.length; i++) {
+                if (this.ruleForm.XXNR[i].id === row.id) {
+                    let json = this.ruleForm.XXNR[i];
+                    this.ruleForm.XXNR.splice(i, 1);
+                    this.ruleForm.XXNR.splice(i + 1, 0, json);
+                    break;
+                }
+
+            }
+        },
+
+        //向上
+        changeTop(row) {
+            for (let i = 0; i < this.ruleForm.XXNR.length; i++) {
+                if (this.ruleForm.XXNR[i].id === row.id) {
+                    if (i > 0) {
+                        let json = this.ruleForm.XXNR[i];
+                        this.ruleForm.XXNR.splice(i, 1);
+                        this.ruleForm.XXNR.splice(i - 1, 0, json);
+                        break;
+                    }
+
+                }
+
+            }
+        },
+
 
 
 
