@@ -200,6 +200,13 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
+        //取消
+        cancel(id) {
+            window.history.go(-1)
+
+        },
+
+
 
 
         //上传照片前的校验
