@@ -57,6 +57,7 @@
             float: left;
             margin: 1.5%;
 
+
         }
 
         .one{
@@ -70,7 +71,37 @@
         .two{
             width: 100%;
             height: 200px;
+
         }
+        .v-for{
+            position: relative;
+        }
+
+        .main-table-div-cz{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+
+        }
+
+        .main-table-div-cz-btn{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+
+
+
         .box-card-div{
             width: 100%;
             height: 160px;
@@ -88,6 +119,11 @@
             z-index: 99;
 
         }
+
+
+
+
+
         .box-card-model-text{
             width: 50px;
             height: 20px;
@@ -148,6 +184,7 @@
 
 
 
+
         .main-page {
             display: flex;
             align-items: center;
@@ -200,7 +237,7 @@
                     </el-card>
                 </div>
 
-                <div class="main-table-div"  v-for="(item,index) in listData" :key="index">
+                <div class="main-table-div v-for"  v-for="(item,index) in listData" :key="index">
                     <el-card class="box-card two">
                         <div class="box-card-div">
                             <div class="box-card-model">
@@ -231,6 +268,13 @@
 
 
                     </el-card>
+
+                    <div class="main-table-div-cz">
+                        <div class="main-table-div-cz-btn">
+                            <el-button type="primary" round>编辑</el-button>
+                            <el-button type="danger" round style="margin-left: 20px">删除</el-button>
+                        </div>
+                    </div>
                 </div>
 
 

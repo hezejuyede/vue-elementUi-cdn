@@ -140,6 +140,8 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
+
+
         //进行新增
 
         doAdd() {
@@ -201,3 +203,21 @@ var vm = new Vue({                  //创建Vue 实例
 
     }
 });
+
+$(".v-for").mouseenter(function () {
+    setTimeout(() => {
+        $(".main-table-div-cz").eq($(this).index()-1).show();
+    }, 500)
+
+
+    console.log($(this).index())
+
+})
+
+$(".v-for").mouseleave(function () {
+
+    setTimeout(() => {
+        $(".main-table-div-cz").eq($(this).index()-1).hide();
+    }, 500)
+
+})
