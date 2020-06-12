@@ -2,6 +2,10 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
 
+        collapseList:[
+            {"text":"项目进展1"},
+        ]
+
 
     },
 
@@ -47,6 +51,33 @@ var vm = new Vue({                  //创建Vue 实例
         lastStep(id) {
             let page = "/cdn-vue-elementUi/page/createPage2.html?" + id + "";
             window.location.href = page;
+        },
+
+
+        //新增选择
+        addXX() {
+            let nmu = this.collapseList.length + 1;
+
+            let json = {"text": "项目进展" + nmu + " "};
+            this.collapseList.push(json)
+
+
+        },
+
+        //删除选项
+        deleteXX() {
+            let num = this.collapseList.length;
+            if (num > 1) {
+                this.collapseList.pop();
+            }
+            else {
+                this.$message({
+                    type: 'warning',
+                    message: '最少剩余1个选项'
+                });
+            }
+
+
         },
 
 
