@@ -86,21 +86,54 @@
                 </el-steps>
             </div>
             <div class="el-main-content" ref="elMainContent">
-                <label>
-                    <span>新增进展</span>
-                    <span>:</span>
-                    <el-button type="primary" icon="el-icon-plus" circle @click="addXX"></el-button>
-                </label>
-                <label style="margin-left: 50px">
-                    <span>删除进展</span>
-                    <span>:</span>
-                    <el-button type="danger" icon="el-icon-minus" circle @click="deleteXX"></el-button>
-                </label>
-                <el-collapse accordion>
-                    <el-collapse-item v-for="(item,index) in collapseList" :key="index" :title="item.text">
+                <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules"
+                         style="width: 100%;margin: 0 auto">
+                    <el-form-item label="项目成果：" prop="JZBT">
+                        <el-input v-model="ruleForm.JZBT" style="width: 100%" placeholder="项目成果"></el-input>
+                    </el-form-item>
 
-                    </el-collapse-item>
-                </el-collapse>
+                    <el-form-item label="项目进展：" required>
+                        <label>
+                            <span>新增进展</span>
+                            <span>:</span>
+                            <el-button type="primary" icon="el-icon-plus" circle @click="addXX"></el-button>
+                        </label>
+                        <label style="margin-left: 50px">
+                            <span>删除进展</span>
+                            <span>:</span>
+                            <el-button type="danger" icon="el-icon-minus" circle @click="deleteXX"></el-button>
+                        </label>
+                        <el-collapse accordion>
+                            <el-collapse-item v-for="(item,index) in collapseList" :key="index" :title="item.text">
+                                <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules"
+                                         style="width: 100%;margin: 0 auto">
+                                    <el-form-item label="进展标题：" prop="JZBT">
+                                        <el-input v-model="ruleForm.JZBT" style="width: 100%" placeholder="进展标题"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="里程碑时间：" prop="date">
+                                        <el-date-picker
+                                                type="date"
+                                                placeholder="里程碑时间"
+                                                value-format="yyyy-MM-dd"
+                                                v-model="ruleForm.date"
+                                                style="width: 100%;">
+                                        </el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="进展内容：" prop="JZNR">
+                                        <el-input v-model="ruleForm.JZNR"
+                                                  type="textarea"
+                                                  :rows="8"
+                                                  style="width: 100%" placeholder="进展内容"></el-input>
+                                    </el-form-item>
+                                </el-form>
+                            </el-collapse-item>
+                        </el-collapse>
+                    </el-form-item>
+                </el-form>
+
+
+
+
 
             </div>
 

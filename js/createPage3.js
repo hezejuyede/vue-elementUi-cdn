@@ -4,7 +4,33 @@ var vm = new Vue({                  //创建Vue 实例
 
         collapseList:[
             {"text":"项目进展1"},
-        ]
+        ],
+
+        ruleForm: {
+            XMCG:"",
+            JZBT:"",
+            date:"",
+            JZNR:"",
+
+        },
+        rules: {
+            XMCG: [
+                {required: true, message: '请输入项目成果', trigger: 'blur'},
+                {min: 2, max: 100, message: '至少输入两个字'}
+            ],
+
+            date: [
+                {required: true, message: '请选择项目', trigger: 'change'},
+            ],
+            JZBT: [
+                {required: true, message: '请输入进展标题', trigger: 'blur'},
+                {min: 2, max: 100, message: '至少输入两个字'}
+            ],
+            JZNR: [
+                {required: true, message: '请输入进展内容', trigger: 'blur'},
+                {min: 2, max: 500, message: '至少输入两个字'}
+            ]
+        },
 
 
     },
