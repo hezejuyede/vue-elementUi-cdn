@@ -2,21 +2,78 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
 
-        userName:"",
 
-        listData:[
-            {},
-            {},
-            {},
-            {},
+
+        ruleForm: {
+            XMMC:"",
+            province:"",
+            city:"",
+            county:"",
+            date1:"",
+            date2:"",
+            XMGS:"",
+            MJNR:"1",
+            MJNR1:"",
+            MJNR2:"",
+            NJLX:"1",
+            MJZS:"",
+
+
+        },
+        rules: {
+            XMMC:[
+                {required: true, message: '请输入项目名称', trigger: 'blur'},
+                {min: 2, max: 100, message: '至少输入两个字'}
+            ],
+            province: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+            city: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+            county: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+
+            date1: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+            date2: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+
+            XMGS: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+
+            MJNR: [
+                {required: true, message: '请选择', trigger: 'change'},
+            ],
+            MJNR1: [
+                {required: true, message: '请输入游戏内道具', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            MJNR2: [
+                {required: true, message: '请输入人民币', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+            MJZS: [
+                {required: true, message: '请输入募集总量', trigger: 'blur'},
+                {pattern:/^\+?[1-9][0-9]*$/, message: '格式不正确'}
+            ],
+        },
+
+        typesOptions: [
+            {"name": "收获", "id": 1},
+            {"name": "任务", "id": 2},
+            {"name": "偷取", "id": 3}
         ],
 
 
-        currentPage: 1,
-        startIndex: 0,
-        mrPage: 10,
-        pageNum: Number,
-        countSize: 0,
+        headers: {},
+        uploadUrl:"",
+        uploadData: {},
+        hideUpload: false,
 
 
         firstName: 'Foo',
@@ -34,8 +91,6 @@ var vm = new Vue({                  //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
-
-        this.getTableList();
 
 
     },
@@ -125,100 +180,70 @@ var vm = new Vue({                  //创建Vue 实例
             let h = window.innerHeight
             $(".elContainer").height(h);
             let div = this.$refs.elMainContent;
-            div.style.height = (h - 250) + "px";
-        },
-
-        //查询
-        doSearch(){
-
+           /* div.style.height = (h - 250) + "px";*/
         },
 
 
-        //页面加载去请求的table
-        getTableList(){
+        //下一步
+        nextStep(id) {
+            this.$refs.form.validate((valid) => {
+                if (valid) {
+                    let page = "/cdn-vue-elementUi/page/createPage2.html?" + id + "";
+                    window.location.href = page;
 
-        },
-
-
-
-
-        //进行新增
-
-        doAdd() {
-
-            let page = "/cdn-vue-elementUi/page/createPage1.html";
-            window.location.href = page;
-
-        },
-
-
-        //进行编辑
-        editClick(id) {
-            let page = "/cdn-vue-elementUi/page/createPage1.html?"+ id +"";
-            window.location.href = page;
-        },
-
-        //显示删除
-        showDelete(id) {
-
-            this.$confirm('删除后不和恢复', '确定删除', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                this.doDelete(id);
-
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });
-            });
-
-        },
-
-        //进行删除
-        doDelete(id) {
-            this.$message({
-                type: 'success',
-                message: '删除成功!'
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
             });
 
         },
 
 
-        //分页显示数据改变
-        handleSizeChange(val) {
-            this.mrPage = val;
-            this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList();
+
+
+        //上传照片前的校验
+        beforeAvatarUpload(file) {
+            var testmsg = /^image\/(jpeg|png|jpg)$/.test(file.type);
+            const isLt4M = file.size / 1024 / 1024 <= 2;
+            if (!testmsg) {
+                this.$message.error('上传图片格式不对!');
+                return false
+            }
+            if (!isLt4M) {
+                this.$message.error('上传图片大小不能超过 2M!');
+                return false
+            }
         },
 
 
-        //分页页面改变
-        handleCurrentChange(val) {
-            this.startIndex = (val - 1) * this.mrPage;
-            this.getTableList();
+        //图片上传成功后调用
+        uploadSuccess(response, file, fileList) {
+
         },
+
+
+        //上传失败
+        uploadFailure(err, file, fileList) {
+            this.hideUpload = false;
+            this.$refs.upload.clearFiles();
+            this.$message.warning(err);
+        },
+
+
+        //上传超过设定值
+        handleEditChange(file, fileList) {
+            this.hideUpload = fileList.length >= 1;
+        },
+
+        //删除上传照片后
+        handleRemove(file, fileList) {
+            this.hideUpload = fileList.length >= 1
+        },
+
+
+
 
 
     }
 });
-
-$(".v-for").mouseenter(function () {
-    setTimeout(() => {
-        $(".main-table-div-cz").eq($(this).index()-1).show();
-    }, 500)
-
-
-    console.log($(this).index())
-
-})
-
-$(".v-for").mouseleave(function () {
-
-    setTimeout(() => {
-        $(".main-table-div-cz").eq($(this).index()-1).hide();
-    }, 500)
-
-})

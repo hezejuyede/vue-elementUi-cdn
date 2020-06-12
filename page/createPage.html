@@ -56,6 +56,7 @@
             border-radius: 10px;
             float: left;
             margin: 1.5%;
+            cursor: pointer;
 
 
         }
@@ -271,8 +272,8 @@
 
                     <div class="main-table-div-cz">
                         <div class="main-table-div-cz-btn">
-                            <el-button type="primary" round>编辑</el-button>
-                            <el-button type="danger" round style="margin-left: 20px">删除</el-button>
+                            <el-button type="primary" round @click="editClick(item.id)">编辑</el-button>
+                            <el-button type="danger" round style="margin-left: 20px" @click="showDelete(item.id)">删除</el-button>
                         </div>
                     </div>
                 </div>

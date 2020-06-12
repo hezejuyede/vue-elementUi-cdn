@@ -38,15 +38,20 @@
             justify-content: flex-start;
             padding-left: 50px;
         }
-        .main-title{
+        .el-main-title{
+
             height: 80px;
+            border-bottom:1px solid #f0f0f0 ;
         }
 
-        .main-title-search{
-            margin-right: 50px;
+        .el-main-content{
+            width: 50%;
+            margin: 0 auto;
+            overflow: auto;
+
         }
 
-        .main-page {
+        .el-main-btn {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -55,9 +60,15 @@
         }
 
 
-        .el-dialog{
-            border-radius: 10px;
+        .hide .el-upload--picture-card {
+            display: none;
         }
+
+        .xmszd .el-col-11 {
+             width: 27.7%;
+        }
+
+
     </style>
 
 
@@ -74,11 +85,188 @@
                 <el-breadcrumb-item>爱心项目管理</el-breadcrumb-item>
                 <el-breadcrumb-item>创建或编辑爱心项目</el-breadcrumb-item>
             </el-breadcrumb>
-
         </el-header>
-
         <el-main>
+            <div class="el-main-title">
+                <el-steps :active="1" align-center>
+                    <el-step title="项目基础信息"></el-step>
+                    <el-step title="项目背景"></el-step>
+                    <el-step title="项目成果进展"></el-step>
+                </el-steps>
+            </div>
+            <div class="el-main-content" ref="elMainContent">
+                <el-form ref="form" label-width="150px" :model="ruleForm" :rules="rules">
+                    <el-form-item label="项目名称：" style="margin-top: 10px" prop="XMMC">
+                        <el-input
+                                v-model="ruleForm.XMMC"
+                                style="width: 100%"
+                                placeholder="请输入项目名称"></el-input>
+                    </el-form-item>
+                    <el-form-item label="项目所在地：" required>
+                        <div class="xmszd">
+                            <el-col :span="11">
+                                <el-form-item prop="province">
+                                    <el-select
+                                            style="width: 100%"
+                                            v-model="ruleForm.XMGS"
+                                            clearable
+                                            filterable
+                                            allow-create
+                                            default-first-option
+                                            placeholder="请选择省">
+                                        <el-option
+                                                v-for="item in typesOptions"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col class="line" :span="2">-</el-col>
+                            <el-col :span="11">
 
+
+                                <el-form-item prop="city">
+                                    <el-select
+                                            style="width: 100%"
+                                            v-model="ruleForm.city"
+                                            clearable
+                                            filterable
+                                            allow-create
+                                            default-first-option
+                                            placeholder="请选择市">
+                                        <el-option
+                                                v-for="item in typesOptions"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                            </el-col>
+                            <el-col class="line" :span="2">-</el-col>
+                            <el-col :span="11">
+                                <el-form-item prop="county">
+                                    <el-select
+                                            style="width: 100%"
+                                            v-model="ruleForm.XMGS"
+                                            clearable
+                                            filterable
+                                            allow-create
+                                            default-first-option
+                                            placeholder="请选择县区">
+                                        <el-option
+                                                v-for="item in typesOptions"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
+                            </el-col>
+                        </div>
+
+                    </el-form-item>
+
+                    <el-form-item label="活动时间：" required>
+
+                        <el-col :span="11">
+                            <el-form-item prop="date1">
+                                <el-date-picker
+                                        type="date"
+                                        placeholder="开始时间"
+                                        value-format="yyyy-MM-dd"
+                                        v-model="ruleForm.date1"
+                                        style="width: 100%;">
+                                </el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                        <el-col class="line" :span="2">-</el-col>
+                        <el-col :span="11">
+                            <el-form-item prop="date2">
+                                <el-date-picker
+                                        type="date"
+                                        placeholder="结束时间"
+                                        v-model="ruleForm.date2"
+                                        value-format="yyyy-MM-dd"
+                                        style="width: 100%;">
+                                </el-date-picker>
+                            </el-form-item>
+                        </el-col>
+                    </el-form-item>
+
+                    <el-form-item label="项目图片：" required>
+                        <el-upload
+                                :action="uploadUrl"
+                                list-type="picture-card"
+                                :headers='headers'
+                                :auto-upload="false"
+                                ref="upload"
+                                :limit="1"
+                                :data="uploadData"
+                                :class="{hide:hideUpload}"
+                                :on-remove="handleRemove"
+                                :on-change="handleEditChange"
+                                :on-success="uploadSuccess"
+                                :before-upload="beforeAvatarUpload"
+                                :on-error="uploadFailure">
+                            <i class="el-icon-plus"></i>
+                            <div class="el-upload__tip" slot="tip" style="margin-left: 100px">只能上传jpeg/jpg/png文件，且不超过2M</div>
+                        </el-upload>
+                    </el-form-item>
+
+
+                    <el-form-item label="项目归属：" prop="csTimeType" >
+                        <el-select
+                                style="width: 100%"
+                                v-model="ruleForm.XMGS"
+                                clearable
+                                filterable
+                                allow-create
+                                default-first-option
+                                placeholder="请选择项目归属">
+                            <el-option
+                                    v-for="item in typesOptions"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="募集内容：" prop="MJNR">
+                        <el-radio v-model="ruleForm.MJNR" label="1" border>游戏内道具</el-radio>
+                        <el-radio v-model="ruleForm.MJNR" label="2" border>人民币</el-radio>
+                    </el-form-item>
+                    <el-form-item style="margin-top: 10px" prop="MJNR1" v-if="ruleForm.MJNR==='1'">
+                        <el-input
+                                v-model="ruleForm.MJNR1"
+                                style="width: 100%"
+                                placeholder="游戏内道具"></el-input>
+
+                    </el-form-item>
+                    <el-form-item style="margin-top: 10px" prop="MJNR2" v-if="ruleForm.MJNR==='2'">
+                        <el-input
+                                v-model="ruleForm.MJNR2"
+                                style="width: 100%"
+                                placeholder="人民币"></el-input>
+                    </el-form-item>
+                    <el-form-item label="募集类型：">
+                        <el-radio v-model="ruleForm.NJLX" label="1" border>累计型募集</el-radio>
+                        <el-radio v-model="ruleForm.NJLX" label="2" border>控制型募集</el-radio>
+                        <div class="" style="color: #999999">每日募集数量不设限制，达到募集总量或结束时间，不再募集爱心。</div>
+                    </el-form-item>
+                    <el-form-item label="募集总量：" prop="MJZS">
+                        <el-input v-model="ruleForm.MJZS" style="width: 100%" placeholder="请输入募集总量"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+
+            <div class="el-main-btn">
+                <el-button type="primary"  style="width:150px" @click="nextStep">下一步</el-button>
+            </div>
         </el-main>
     </el-container>
 </div>
@@ -87,7 +275,7 @@
 <script src="../common/js/vue.min.js"></script>
 <script src="../common/js/element.js"></script>
 <script src="../common/js/jquery-3.1.1.min.js"></script>
-<script src="../js/index.js"></script>
+<script src="../js/createPage1.js"></script>
 
 
 </body>
