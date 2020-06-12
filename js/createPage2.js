@@ -108,6 +108,21 @@ var vm = new Vue({                  //创建Vue 实例
         setDivHeight() {
             let h = window.innerHeight
             $(".elContainer").height(h);
+
+            editormd("test-editor", {
+                width: "100%",
+                height: 740,
+                path: "../common/js/markdown/lib/",
+                codeFold: true,
+                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                searchReplace: true,
+                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                emoji: true,
+            });
+            editormd.emoji = {
+                path: "../common/js/markdown/plugins/emoji-dialog/",
+                ext: ".png"
+            };
         },
 
 
