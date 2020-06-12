@@ -124,7 +124,7 @@ var vm = new Vue({                  //创建Vue 实例
         setDivHeight() {
             let h = window.innerHeight
             $(".elContainer").height(h);
-            let div = this.$refs.elMainContent;
+            let div = this.$refs.mainTable;
             div.style.height = (h - 250) + "px";
         },
 
@@ -146,7 +146,7 @@ var vm = new Vue({                  //创建Vue 实例
 
         doAdd() {
 
-            let page = "/cdn-vue-elementUi/page/createPage1.html";
+            let page = "/cdn-vue-elementUi/page/createPage2.html";
             window.location.href = page;
 
         },
@@ -210,8 +210,6 @@ $(".v-for").mouseenter(function () {
         $(".main-table-div-cz").eq($(this).index()-1).show();
     }, 500)
 
-
-    console.log($(this).index())
 
 })
 

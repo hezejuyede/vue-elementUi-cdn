@@ -3,6 +3,8 @@ var vm = new Vue({                  //创建Vue 实例
     data: {                         // 定义属性，并设置初始值
 
 
+
+
         firstName: 'Foo',
         lastName: 'Bar',
         fullName: 'Foo Bar'
@@ -103,30 +105,38 @@ var vm = new Vue({                  //创建Vue 实例
     methods: {                     // 定义方法，用于事件交互时使用的函数
 
         //根据屏幕设置div高度
-        setDivHeight: () => {
-            $(".elContainer").height(window.innerHeight);
+        setDivHeight() {
+            let h = window.innerHeight
+            $(".elContainer").height(h);
+        },
+
+
+        //下一步
+        nextStep(id) {
+            this.$refs.form.validate((valid) => {
+                if (valid) {
+                    let page = "/cdn-vue-elementUi/page/createPage2.html?" + id + "";
+                    window.location.href = page;
+
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
+            });
+
+        },
+
+
+        //上一步
+        lastStep(id) {
+            let page = "/cdn-vue-elementUi/page/createPage1.html?" + id + "";
+            window.location.href = page;
         },
 
 
 
 
-        handleClose: (done) => {
 
-
-            ELEMENT.MessageBox.confirm('确认关闭？')
-
-                .then(_ => {
-
-                    done();
-
-                })
-
-                .catch(_ => {
-
-                });
-
-
-        }
 
 
     }
