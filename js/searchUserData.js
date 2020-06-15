@@ -1,6 +1,12 @@
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
+        URL: {
+            list: '/osg-omgmt1032/operator/c01/f97',
+        },
+
+
+
         tables:[
             {"xuhao":1,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
             {"xuhao":2,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
@@ -148,6 +154,29 @@ var vm = new Vue({                  //创建Vue 实例
 
         //页面加载去请求的table
         getTableList(){
+            let params ={
+                "aa":11
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.list,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        $.success(`操作成功`, function () {
+                            console.log(1)
+                        });
+                    }
+
+                }
+            );
 
         },
 

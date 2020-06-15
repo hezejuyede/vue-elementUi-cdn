@@ -1,6 +1,9 @@
 var vm = new Vue({                   //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
+        URL: {
+            list: '/osg-omgmt1032/operator/c01/f97',
+        },
 
         currentDate: new Date(),
 
@@ -126,18 +129,45 @@ var vm = new Vue({                   //创建Vue 实例
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
+                 this.doDismount();
+
             }).catch(() => {
                 this.$message({
                     type: 'info',
-                    message: '已取消删除'
+                    message: '已取消下架'
                 });
             });
 
 
+        },
+
+
+        //进行下架
+        doDismount(){
+            let params ={
+                "aa":11
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.list,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        this.$message({
+                            type: 'success',
+                            message: '下架成功!'
+                        });
+                    }
+
+                }
+            );
         }
 
 
