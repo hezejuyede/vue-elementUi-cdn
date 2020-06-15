@@ -3,16 +3,26 @@ var vm = new Vue({                  //创建Vue 实例
     data: {                         // 定义属性，并设置初始值
 
         ruleForm: {
-            CONSIGNEE_NAME: "",
-            PHONE:"",
-            HARVEST_ADDRESS:"",
-            UNIT_NAME:"",
-            address:""
+            BTMC: "",
+            GGGS:"",
+            FBFS:"1",
+            FBSJ:"",
+            GGZW:""
         },
         rules: {
-            CONSIGNEE_NAME: [
-                {required: true, message: '请输入收货人姓名', trigger: 'blur'},
+            BTMC: [
+                {required: true, message: '请输入标题名称', trigger: 'blur'},
                 {min: 2, max: 20, message: '姓名在 2 到 20 个字符'}
+            ],
+            GGGS: [
+                {required: true, message: '请选择公告归属', trigger: 'blur'},
+                {min: 2, max: 20, message: '姓名在 2 到 20 个字符'}
+            ],
+            FBSJ: [
+                {required: true, message: '请选择发布时间', trigger: 'change'},
+            ],
+            GGZW: [
+                {required: true, message: '请输入公告正文', trigger: 'change'},
             ],
 
         },
@@ -145,8 +155,8 @@ var vm = new Vue({                  //创建Vue 实例
         }
     },
 
-
-    methods: {                     // 定义方法，用于事件交互时使用的函数
+    // 定义方法，用于事件交互时使用的函数
+    methods: {
 
         //根据屏幕设置div高度
         setDivHeight: () => {
