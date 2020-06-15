@@ -2,18 +2,26 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
 
-        collapseList:[
-            {"text":"项目进展1"},
-        ],
+
 
         ruleForm: {
-            XMCG:"",
-            JZBT:"",
-            date:"",
-            JZNR:"",
+            JZCG:"",
+            XMJZ: [
+                {
+                    "text":"项目进展1",
+                    "JZBT": "",
+                    "date": "",
+                    "JZNR": "",
+                }
+            ],
+
 
         },
         rules: {
+            JZCG: [
+                {required: true, message: '请输入项目进展', trigger: 'blur'},
+                {min: 2, max: 100, message: '至少输入两个字'}
+            ],
             XMCG: [
                 {required: true, message: '请输入项目成果', trigger: 'blur'},
                 {min: 2, max: 100, message: '至少输入两个字'}
@@ -62,6 +70,7 @@ var vm = new Vue({                  //创建Vue 实例
         doSave(id) {
             this.$refs.form.validate((valid) => {
                 if (valid) {
+                    console.log(this.ruleForm.XMJZ)
 
 
                 } else {
@@ -82,19 +91,25 @@ var vm = new Vue({                  //创建Vue 实例
 
         //新增选择
         addXX() {
-            let nmu = this.collapseList.length + 1;
+            let nmu = this.ruleForm.XMJZ.length + 1;
 
-            let json = {"text": "项目进展" + nmu + " "};
-            this.collapseList.push(json)
+            let json = {
+                "text": "项目进展" + nmu + " ",
+                "JZBT": "",
+                "daNte": "",
+                "JZR": "",
+            };
+            this.ruleForm.XMJZ.push(json)
+            console.log(this.ruleForm.XMJZ)
 
 
         },
 
         //删除选项
         deleteXX() {
-            let num = this.collapseList.length;
+            let num = this.ruleForm.XMJZ.length;
             if (num > 1) {
-                this.collapseList.pop();
+                this.ruleForm.XMJZ.pop();
             }
             else {
                 this.$message({
