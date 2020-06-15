@@ -3,12 +3,11 @@ var vm = new Vue({                  //创建Vue 实例
     data: {                         // 定义属性，并设置初始值
 
 
-
         ruleForm: {
-            JZCG:"",
+            JZCG: "",
             XMJZ: [
                 {
-                    "text":"项目进展1",
+                    "text": "项目进展1",
                     "JZBT": "",
                     "date": "",
                     "JZNR": "",
@@ -110,8 +109,7 @@ var vm = new Vue({                  //创建Vue 实例
             let num = this.ruleForm.XMJZ.length;
             if (num > 1) {
                 this.ruleForm.XMJZ.pop();
-            }
-            else {
+            } else {
                 this.$message({
                     type: 'warning',
                     message: '最少剩余1个选项'

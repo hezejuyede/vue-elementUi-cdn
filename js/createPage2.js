@@ -136,7 +136,7 @@ var vm = new Vue({                  //创建Vue 实例
 
         //上一步
         lastStep(id) {
-            let page = "/cdn-vue-elementUi/page/createPage2.html?" + id + "";
+            let page = "/cdn-vue-elementUi/page/createPage1.html?" + id + "";
             window.location.href = page;
         },
 

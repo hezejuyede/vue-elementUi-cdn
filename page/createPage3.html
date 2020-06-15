@@ -106,7 +106,8 @@
                         <el-collapse accordion>
                             <el-collapse-item v-for="(item,index) in ruleForm.XMJZ" :key="index" :title="item.text">
                                 <el-form-item label="进展标题：" required style="margin: 20px auto">
-                                    <el-input v-model="ruleForm.XMJZ[index].JZBT" style="width: 100%;" placeholder="进展标题"></el-input>
+                                    <el-input v-model="ruleForm.XMJZ[index].JZBT" style="width: 100%;"
+                                              placeholder="进展标题"></el-input>
                                 </el-form-item>
                                 <el-form-item label="里程碑时间：" required style="margin: 20px auto">
                                     <el-date-picker
@@ -128,9 +129,6 @@
                         </el-collapse>
                     </el-form-item>
                 </el-form>
-
-
-
 
 
             </div>
