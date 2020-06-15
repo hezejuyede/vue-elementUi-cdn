@@ -56,8 +56,16 @@
             display: none;
         }
         .ql-editor{
-            height:400px;
+            height: 400px;
+
         }
+        .quill-editor{
+            margin-left: 90px;
+
+
+
+        }
+
     </style>
 
 
@@ -131,9 +139,8 @@
                         <div class="el-upload__tip" slot="tip" style="margin-left: 100px">只能上传jpeg/jpg/png文件，且不超过2M</div>
                     </el-upload>
                 </el-form-item>
-                <el-form-item label="公告正文：" prop="GGZW" >
+                <el-form-item label="公告正文：" prop="GGZW">
                     <quill-editor ref="myTextEditor" v-model="ruleForm.GGZW" :options="editorOption"></quill-editor>
-
                 </el-form-item>
 
             </el-form>
