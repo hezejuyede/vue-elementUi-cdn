@@ -175,7 +175,8 @@ var vm = new Vue({                  //创建Vue 实例
                 function (resp) {
                     if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
                         $.error(resp.message);
-                    } else {
+                    }
+                    else {
                         $.success(`操作成功`, function () {
                             console.log(1)
                         });
