@@ -1,18 +1,23 @@
+
+
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
-        tables:[
-            {"xuhao":1,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":2,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":3,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":4,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":5,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":6,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
-            {"xuhao":7,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0}
+        URL: {
+            list: '/osg-omgmt1032/operator/c01/f97',
+        },
+        tables: [
+            {"xuhao": 1, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 2, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 3, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 4, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 5, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
+            {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0}
         ],
-        userName:"",
-        examineTime:"",
-        types:"",
+        userName: "",
+        examineTime: "",
+        types: "",
         typesOptions: [
             {"name": "收获", "id": 1},
             {"name": "任务", "id": 2},
@@ -136,50 +141,70 @@ var vm = new Vue({                  //创建Vue 实例
 
         //动态设置table高度
 
-        setTableHeight(){
+        setTableHeight() {
             let h = window.innerHeight;
             this.tableHeight = h - 240;
         },
 
 
-
-
         //查询
-        doSearch(){
+        doSearch() {
 
         },
 
         //进行重置
-        doReset(){
+        doReset() {
 
 
         },
 
 
         //页面加载去请求的table
-        getTableList(){
+        getTableList() {
+            let params ={
+                "aa":11
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.list,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        $.success(`操作成功`, function () {
+                            console.log(1)
+                        });
+                    }
+
+                }
+            );
 
         },
 
 
         //进行新增
 
-        doAdd(){
+        doAdd() {
 
-            let page="/cdn-vue-elementUi/page/noticeAdd.html";
-            window.location.href= page;
+            let page = "/cdn-vue-elementUi/page/noticeAdd.html";
+            window.location.href = page;
 
         },
 
 
         //进行编辑
-        editClick(){
-            let page="/cdn-vue-elementUi/page/noticeEdit.html";
-            window.location.href= page;
+        editClick() {
+            let page = "/cdn-vue-elementUi/page/noticeEdit.html";
+            window.location.href = page;
         },
 
         //显示删除
-        showDelete(){
+        showDelete() {
 
             this.$confirm('删除后不和恢复', '确定删除', {
                 confirmButtonText: '确定',
@@ -200,7 +225,7 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
         //进行删除
-        doDelete(){
+        doDelete() {
 
 
         },
