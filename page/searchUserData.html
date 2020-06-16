@@ -153,8 +153,8 @@
     <el-dialog title="行为记录" :visible.sync="templateVisible" width=60% :center="true" :close-on-click-modal="false" :show-close="true">
         <div class="" style="height: 300px">
             <el-table class="tb-edit"
-                      :data="tables"
-                      :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                      :data="recordData"
+                      :header-cell-style="{background:'#f0f0f0'}"
                       :cell-style="{fontSize:'12px'}"
                       border
                       :height="200"

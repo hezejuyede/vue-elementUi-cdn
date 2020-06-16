@@ -3,9 +3,8 @@ var vm = new Vue({                  //创建Vue 实例
     data: {                         // 定义属性，并设置初始值
         URL: {
             list: '/osg-omgmt1032/operator/c01/f97',
+            record: '/osg-omgmt1032/operator/c01/f97',
         },
-
-
 
         tables:[
             {"xuhao":1,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
@@ -16,8 +15,9 @@ var vm = new Vue({                  //创建Vue 实例
             {"xuhao":6,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0},
             {"xuhao":7,"MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22","CHECK_STATUS":0}
         ],
-        userName:"",
+        recordData:[],
 
+        userName:"",
         templateVisible:false,
 
         currentPage: 1,
@@ -141,6 +141,26 @@ var vm = new Vue({                  //创建Vue 实例
             this.tableHeight = h - 250;
         },
 
+        //打开全局遮罩层
+        openFullScreen() {
+            this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: '#fff'
+            });
+        },
+
+        //关闭全局遮罩层
+        closeFullScreen() {
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+            });
+            loading.close();
+        },
+
 
 
 
@@ -148,16 +168,18 @@ var vm = new Vue({                  //创建Vue 实例
 
         //查询用户
         searchUser(){
+            this.getTableList(this.userName,this.startIndex,this.pageSize)
 
         },
 
 
         //页面加载去请求的table
-        getTableList(){
-            let params ={
-                "aa":11
+        getTableList(userName,startIndex,pageSize){
+            let params = {
+                "userName":userName,
+                "startIndex": startIndex,
+                "pageSize": pageSize
             };
-
             AJAX2.Async(
                 {
                     url: this.URL.list,
@@ -181,7 +203,33 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
-        editClick(){
+
+
+
+        //点击查看行为记录
+        editClick(row){
+            let params = {
+                "id": row.id,
+            };
+            AJAX2.Async(
+                {
+                    url: this.URL.record,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        this.closeFullScreen();
+                        $.error(resp.message);
+                    } else {
+                        this.templateVisible =true;
+                        this.tables = resp.data
+                    }
+
+                }
+            );
+
             this.templateVisible =true;
 
         },
@@ -192,14 +240,14 @@ var vm = new Vue({                  //创建Vue 实例
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.userName,this.startIndex,this.pageSize);
         },
 
 
         //页面改变
         handleCurrentChange(val) {
             this.startIndex = (val-1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.userName,this.startIndex,this.pageSize);
         },
 
 
