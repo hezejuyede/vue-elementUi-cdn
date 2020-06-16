@@ -10,13 +10,13 @@ var vm = new Vue({
             offline: "/osg-omgmt1032/operator/c01/f97",    //下线
         },
         tables: [
-            {"xuhao": 1, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 2, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 3, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 4, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 5, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0},
-            {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "CHECK_STATUS": 0}
+            {"xuhao": 1, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 1},
+            {"xuhao": 2, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 2},
+            {"xuhao": 3, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 3},
+            {"xuhao": 4, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 4},
+            {"xuhao": 5, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 5},
+            {"xuhao": 6, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 6},
+            {"xuhao": 7, "MONEY": "11", "MONEY2": "22", "MONEY3": "22", "MONEY4": "22", "id": 7}
         ],
 
 
@@ -196,13 +196,13 @@ var vm = new Vue({
 
 
         //进行编辑
-        editClick(id) {
-            let page = "/cdn-vue-elementUi/page/noticeEdit.html+" + id + "";
+        editClick(row) {
+            let page = "/cdn-vue-elementUi/page/noticeEdit.html?" + row.id + "";
             window.location.href = page;
         },
 
         //显示删除
-        showDelete(id) {
+        showDelete(row) {
             this.$confirm('删除后不和恢复', '确定删除', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -247,8 +247,8 @@ var vm = new Vue({
 
 
         //查看详情
-        detailsClick(id) {
-            let page = "/cdn-vue-elementUi/page/noticeEdit.html+" + id + "";
+        detailsClick(row) {
+            let page = "/cdn-vue-elementUi/page/noticeDetails.html?" + row.id + "";
             window.location.href = page;
         },
 
