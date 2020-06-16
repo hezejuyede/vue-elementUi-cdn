@@ -129,7 +129,11 @@
                     </el-image>
                 </el-form-item>
                 <el-form-item label="公告正文：" prop="GGZW">
-                    <quill-editor ref="myTextEditor" v-model="ruleForm.GGZW" :options="editorOption" disabled></quill-editor>
+                    <quill-editor ref="myTextEditor"
+                                  v-model="ruleForm.GGZW"
+                                  @focus="onEditorFocus($event)"
+                                  :options="editorOption"
+                                  disabled></quill-editor>
                 </el-form-item>
 
             </el-form>

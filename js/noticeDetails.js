@@ -1,8 +1,8 @@
-var vm = new Vue({                  //创建Vue 实例
-    el: "#app",                     // DOM 元素，挂载视图模型，
-    data: {                         // 定义属性，并设置初始值
+var vm = new Vue({
+    el: "#app",
+    data: {
         URL: {
-            add: '/osg-omgmt1032/operator/c01/f97',//新增公告
+            details: '/osg-omgmt1032/operator/c01/f97',//查看详情
         },
 
 
@@ -57,11 +57,6 @@ var vm = new Vue({                  //创建Vue 实例
             placeholder: '',
 
         },
-
-        headers: {},
-        uploadUrl:"",
-        uploadData: {},
-        hideUpload: false,
 
     },
 
@@ -142,90 +137,16 @@ var vm = new Vue({                  //创建Vue 实例
             }
         },
 
-
-        //进行新增
-        doAdd() {
-
-            this.$refs.form.validate((valid) => {
-                if (valid) {
-                    console.log(this.ruleForm.GGZW)
-
-                } else {
-                    return this.$message.warning("信息填写不正确");
-                    return false
-                }
-            });
-
-
-        },
-
-
-        //进行保存
-        doSave() {
-            this.$refs.form.validate((valid) => {
-                if (valid) {
-
-                } else {
-                    return this.$message.warning("信息填写不正确");
-                    return false
-                }
-            });
-
-
+        // 获得焦点事件 禁止编辑
+        onEditorFocus(event) {
+            event.enable(false);
         },
 
 
         //取消
         doCancel() {
-
             window.history.go(-1)
-
-
-        },
-
-
-
-
-
-        //上传照片前的校验
-        beforeAvatarUpload(file) {
-            var testmsg = /^image\/(jpeg|png|jpg)$/.test(file.type);
-            const isLt4M = file.size / 1024 / 1024 <= 2;
-            if (!testmsg) {
-                this.$message.error('上传图片格式不对!');
-                return false
-            }
-            if (!isLt4M) {
-                this.$message.error('上传图片大小不能超过 2M!');
-                return false
-            }
-        },
-
-
-        //图片上传成功后调用
-        uploadSuccess(response, file, fileList) {
-
-        },
-
-
-        //上传失败
-        uploadFailure(err, file, fileList) {
-            this.hideUpload = false;
-            this.$refs.upload.clearFiles();
-            this.$message.warning(err);
-        },
-
-
-        //上传超过设定值
-        handleEditChange(file, fileList) {
-            this.hideUpload = fileList.length >= 1;
-        },
-
-        //删除上传照片后
-        handleRemove(file, fileList) {
-            this.hideUpload = fileList.length >= 1
-        },
-
+        }
 
 
     }

@@ -56,7 +56,14 @@
             display: none;
         }
         .ql-editor{
-            height:400px;
+            height: 400px;
+
+        }
+        .quill-editor{
+            margin-left: 90px;
+
+
+
         }
     </style>
 
@@ -77,13 +84,13 @@
         </el-header>
         <el-main>
             <el-form ref="form" :model="ruleForm" :rules="rules" style="width: 50%;margin: 0 auto">
-                <el-form-item label="标题名称：" prop="CONSIGNEE_NAME">
-                    <el-input v-model="ruleForm.CONSIGNEE_NAME" style="width: 80%" placeholder="标题名称"></el-input>
+                <el-form-item label="标题名称：" prop="BTMC">
+                    <el-input v-model="ruleForm.BTMC" style="width: 80%" placeholder="标题名称"></el-input>
                 </el-form-item>
-                <el-form-item label="公告归属：" prop="CONSIGNEE_NAME" >
+                <el-form-item label="公告归属：" prop="GGGS" >
                     <el-select
                             style="width:80%"
-                            v-model="ruleForm.CONSIGNEE_NAME"
+                            v-model="ruleForm.GGGS"
                             clearable
                             filterable
                             allow-create
@@ -97,24 +104,24 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="发布方式：" prop="CONSIGNEE_NAME" >
+                <el-form-item label="发布方式：" prop="FBFS" required>
                     <div>
-                        <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="1" border>手动发布</el-radio>
-                        <el-radio v-model="ruleForm.CONSIGNEE_NAME" label="2" border>定时发布</el-radio>
+                        <el-radio v-model="ruleForm.FBFS" label="1" border>手动发布</el-radio>
+                        <el-radio v-model="ruleForm.FBFS" label="2" border>定时发布</el-radio>
                     </div>
                 </el-form-item>
-                <el-form-item label="发布时间：" prop="CONSIGNEE_NAME" >
+                <el-form-item label="发布时间：" prop="FBSJ" >
                     <el-date-picker
                             style="width:80%"
-                            v-model="ruleForm.CONSIGNEE_NAME"
+                            v-model="ruleForm.FBSJ"
                             type="datetime"
-                            placeholder="选择日期时间"
+                            placeholder="选择发布时间"
                             value-format="yyyy-MM-dd HH:mm:ss">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="发布封面：" prop="CONSIGNEE_NAME">
+                <el-form-item label="发布封面：" required>
                     <el-upload
-                            :action="uploadUrl"
+                            :action="URL.upload"
                             list-type="picture-card"
                             :headers='headers'
                             :auto-upload="false"
@@ -131,9 +138,8 @@
                         <div class="el-upload__tip" slot="tip" style="margin-left: 100px">只能上传jpeg/jpg/png文件，且不超过2M</div>
                     </el-upload>
                 </el-form-item>
-                <el-form-item label="公告正文：" prop="CONSIGNEE_NAME" >
-                    <quill-editor ref="myTextEditor" v-model="ruleForm.CONSIGNEE_NAME" :options="editorOption"></quill-editor>
-
+                <el-form-item label="公告正文：" prop="GGZW">
+                    <quill-editor ref="myTextEditor" v-model="ruleForm.GGZW" :options="editorOption"></quill-editor>
                 </el-form-item>
 
             </el-form>

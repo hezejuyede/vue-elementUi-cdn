@@ -2,6 +2,7 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
         URL: {
+            upload: '/login/f04',//上传图片
             add: '/osg-omgmt1032/operator/c01/f97',//新增公告
         },
 
