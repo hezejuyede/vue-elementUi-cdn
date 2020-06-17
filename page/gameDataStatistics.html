@@ -116,14 +116,14 @@
                             </el-date-picker>
                         </label>
                         <label class="main-title-search">
-                            <el-button  type="primary" icon="el-icon-search"  @click="searchUser">搜索</el-button>
-                            <el-button  icon="el-icon-delete" @click="searchUser">重置</el-button>
+                            <el-button  type="primary" icon="el-icon-search"  @click="searchDN">搜索</el-button>
+                            <el-button  icon="el-icon-delete" @click="searchReset">重置</el-button>
                         </label>
                     </div>
                     <div class="main-table clearfix">
                         <el-table class="tb-edit"
-                                  :data="tables"
-                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :data="tableDN"
+                                  :header-cell-style="{background:'#f0f0f0'}"
                                   :cell-style="{fontSize:'12px'}"
                                   border
                                   :height="this.tableHeight"
@@ -179,14 +179,14 @@
                 <el-tab-pane label="捐赠统计">
                     <div class="main-title clearfix">
                         <label class="main-title-search fr">
-                            <el-input v-model="userName" placeholder="请输入项目名称" style="width: 300px"></el-input>
+                            <el-input v-model="projectName" placeholder="请输入项目名称" style="width: 300px"></el-input>
                             <el-button type="primary" icon="el-icon-search" @click="searchUser">搜索</el-button>
                         </label>
                     </div>
                     <div class="main-table clearfix">
                         <el-table class="tb-edit"
-                                  :data="tables"
-                                  :header-cell-style="{background:'#f0f0f0',color:'rgba(0, 0, 0, 0.8)',height:'60px',border:'none',fontSize:'14px'}"
+                                  :data="tablesJZ"
+                                  :header-cell-style="{background:'#f0f0f0'}"
                                   :cell-style="{fontSize:'12px'}"
                                   border
                                   :height="this.tableHeight"
@@ -224,20 +224,20 @@
                                     label="操作"
                                     width="200">
                                 <template slot-scope="scope">
-                                    <span v-if="scope.row.CHECK_STATUS ===0" @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
+                                    <span @click="editClick(scope.row)" style="color: #d93f30;cursor: pointer">行为记录</span>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </div>
                     <div class="main-page clearfix">
                         <el-pagination
-                                @size-change="handleSizeChange"
-                                @current-change="handleCurrentChange"
-                                :current-page="currentPage"
+                                @size-change="handleSizeChange2"
+                                @current-change="handleCurrentChange2"
+                                :current-page="currentPage2"
                                 :page-sizes="[10,50,100, 150,200,250,300]"
-                                :page-size="mrPage"
+                                :page-size="mrPage2"
                                 layout="total, sizes, prev, pager, next, jumper"
-                                :total="countSize">
+                                :total="countSize2">
                         </el-pagination>
                     </div>
                 </el-tab-pane>

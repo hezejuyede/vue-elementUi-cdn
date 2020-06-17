@@ -139,15 +139,32 @@ var vm = new Vue({                  //创建Vue 实例
             this.tableHeight = h - 250;
         },
 
+        // 重置查询
+        searchReset() {
+            this.userName = "";
+            this.examineTime = [];
+        },
+
 
 
 
         //查询用户
         searchUser(){
-            let params ={
-                "aa":11
-            };
+            this.getTableList(this.userName,this.examineTime[0],this.examineTime[1],this.startIndex,this.mrPage);
 
+
+        },
+
+
+        //页面加载去请求的table
+        getTableList(userName,examineTime0, examineTime1, startIndex, pageSize) {
+            let params = {
+                "userName": userName,
+                "stimes": examineTime0,
+                "etimes": examineTime1,
+                "startIndex": startIndex,
+                "pageSize": pageSize
+            };
             AJAX2.Async(
                 {
                     url: this.URL.list,
@@ -158,22 +175,13 @@ var vm = new Vue({                  //创建Vue 实例
                 function (resp) {
                     if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
                         $.error(resp.message);
-                    }
-                    else {
-                        $.success(`操作成功`, function () {
-                            console.log(1)
-                        });
+                    } else {
+                        this.tableDN = resp.data;
+
                     }
 
                 }
             );
-
-        },
-
-
-        //页面加载去请求的table
-        getTableList(){
-
         },
 
         //返回上一页
@@ -189,14 +197,14 @@ var vm = new Vue({                  //创建Vue 实例
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.userName,this.examineTime[0],this.examineTime[1],this.startIndex,this.mrPage);
         },
 
 
         //页面改变
         handleCurrentChange(val) {
             this.startIndex = (val-1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.userName,this.examineTime[0],this.examineTime[1],this.startIndex,this.mrPage);
         },
 
 
