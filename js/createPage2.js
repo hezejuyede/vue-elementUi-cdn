@@ -16,7 +16,7 @@ var vm = new Vue({                  //创建Vue 实例
 
 
     created: function () {
-        this.getInfo();
+        this.getDetails();
 
     },
 
@@ -37,32 +37,64 @@ var vm = new Vue({                  //创建Vue 实例
 
     methods: {
 
-        //根据ID查询
-        getInfo() {
-            let params = {
-                "aa": 11
-            };
 
-            AJAX2.Async(
-                {
-                    url: this.URL.list,
-                    data: JSON.stringify(params),
-                    special: true,
-                    isLoading: true
-                },
-                function (resp) {
-                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
-                        $.error(resp.message);
-                    } else {
-                        $.success(`操作成功`, function () {
-                            console.log(1)
-                        });
+        //获取详情信息
+        getDetails() {
+            let id =this.getUrlId();
+            if(id){
+                let params = {
+                    "id":id
+                };
+
+                AJAX2.Async(
+                    {
+                        url: this.URL.details,
+                        data: params,
+                        special: true,
+                        isLoading: true
+                    },
+                    function (resp) {
+                        if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                            $.error(resp.message);
+                        }
+                        else {
+                            console.log(resp.data)
+                        }
+
                     }
+                );
+            }
+            else {
 
-                }
-            );
-
+            }
         },
+
+
+        //获取URL 传来的ID
+        getUrlId() {
+            //封装获取的URL中？后是ID
+            function GetRequest(urlStr) {
+                if (typeof urlStr == "undefined") {
+                    var url = decodeURI(location.search); //获取url中"?"符后的字符串
+                } else {
+                    var url = "?" + urlStr.split("?")[1];
+                }
+                var theRequest = new Object();
+                if (url.indexOf("?") !== -1) {
+                    var str = url.substr(1);
+                    var strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            //获取ID 并赋值给
+            return GetRequest(window.location.search)['id'];
+        },
+
+
 
         //根据屏幕设置div高度
         setDivHeight() {
