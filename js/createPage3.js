@@ -119,6 +119,7 @@ var vm = new Vue({                  //创建Vue 实例
             //获取ID 并赋值给
             return GetRequest(window.location.search)['id'];
         },
+
         //根据屏幕设置div高度
         setDivHeight() {
             let h = window.innerHeight
