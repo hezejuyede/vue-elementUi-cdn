@@ -2,8 +2,16 @@ var vm = new Vue({                   //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
         URL: {
-            list: '/osg-omgmt1032/operator/c01/f97',
+            list: '/osg-omgmt1032/operator/c01/f97',    //列表
+            dismount: '/osg-omgmt1032/operator/c01/f97',//下架
+
         },
+        listData:[
+            {},
+            {},
+            {},
+            {}
+        ],
 
         currentDate: new Date(),
 
@@ -23,6 +31,7 @@ var vm = new Vue({                   //创建Vue 实例
     //'在这里可以在渲染前倒数第二次更改数据的机会，不会触发其他的钩子函数，一般可以在这里做初始数据的获取'
     // '接下来开始找实例或者组件对应的模板，编译模板为虚拟dom放入到render函数中准备渲染'
     created: function () {
+        this.getTableList();
 
 
     },
@@ -112,40 +121,10 @@ var vm = new Vue({                   //创建Vue 实例
             $(".elContainer").height(window.innerHeight);
         },
 
-
-        //进行配置
-        doSettings() {
-            let page = "/cdn-vue-elementUi/page/configurationPageSettings.html"
-            window.location.href = page;
-
-        },
-
-
-        //显示下架
-        dismountGame() {
-
-            this.$confirm('下架后用户将不能在APP看到游戏入口', '确定将该游戏下架？', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                 this.doDismount();
-
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消下架'
-                });
-            });
-
-
-        },
-
-
-        //进行下架
-        doDismount(){
-            let params ={
-                "aa":11
+        //获取游戏列表
+        getTableList() {
+            let params = {
+                "":"",
             };
 
             AJAX2.Async(
@@ -160,6 +139,62 @@ var vm = new Vue({                   //创建Vue 实例
                         $.error(resp.message);
                     }
                     else {
+                        this.listData= resp.data
+                    }
+
+                }
+            );
+
+        },
+
+
+
+        //进行配置
+        doSettings(id) {
+            let page = "/cdn-vue-elementUi/page/configurationPageSettings.html?id=" + id + ""
+            window.location.href = page;
+
+        },
+
+
+        //显示下架
+        dismountGame() {
+
+            this.$confirm('下架后用户将不能在APP看到游戏入口', '确定将该游戏下架？', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.doDismount();
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消下架'
+                });
+            });
+
+
+        },
+
+
+        //进行下架
+        doDismount(id) {
+            let params = {
+                "id": id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.dismount,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
                         this.$message({
                             type: 'success',
                             message: '下架成功!'

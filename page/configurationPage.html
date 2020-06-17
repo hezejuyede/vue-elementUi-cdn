@@ -119,7 +119,7 @@
             </el-breadcrumb>
         </el-header>
         <el-main>
-            <el-row>
+            <el-row v-for="(item,index) in listData" :key="index" style="margin-bottom: 20px">
                 <el-card :body-style="{ padding: '0px' }">
                     <div class="el-card-div">
                         <div class="el-card-div-left">
@@ -139,8 +139,8 @@
                             </div>
                         </div>
                         <div class="el-card-div-right">
-                            <el-button type="primary" round @click="doSettings">进入配置</el-button>
-                            <div class="el-card-div-right-btn" @click="dismountGame">下架</div>
+                            <el-button type="primary" round @click="doSettings(item.id)">进入配置</el-button>
+                            <div class="el-card-div-right-btn" @click="dismountGame(item.id)">下架</div>
                         </div>
                     </div>
                 </el-card>
