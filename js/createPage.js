@@ -2,10 +2,11 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
         URL: {
-            list: '/osg-omgmt1032/operator/c01/f97',
+            list: '/osg-omgmt1032/operator/c01/f97',  //列表
+            delete:'/osg-omgmt1032/operator/c01/f97', //删除
         },
 
-        userName:"",
+        projectName:"",
 
         listData:[
             {},
@@ -133,14 +134,15 @@ var vm = new Vue({                  //创建Vue 实例
 
         //查询
         doSearch(){
+            this.getTableList(this.project)
 
         },
 
 
         //页面加载去请求的table
-        getTableList(){
+        getTableList(project){
             let params ={
-                "aa":11
+                "project":project
             };
 
             AJAX2.Async(
@@ -155,17 +157,13 @@ var vm = new Vue({                  //创建Vue 实例
                         $.error(resp.message);
                     }
                     else {
-                        $.success(`操作成功`, function () {
-                            console.log(1)
-                        });
+
                     }
 
                 }
             );
 
         },
-
-
 
 
         //进行新增
@@ -180,7 +178,7 @@ var vm = new Vue({                  //创建Vue 实例
 
         //进行编辑
         editClick(id) {
-            let page = "/cdn-vue-elementUi/page/createPage1.html?"+ id +"";
+            let page = "/cdn-vue-elementUi/page/createPage1.html?id="+ id +"";
             window.location.href = page;
         },
 
@@ -205,10 +203,36 @@ var vm = new Vue({                  //创建Vue 实例
 
         //进行删除
         doDelete(id) {
-            this.$message({
-                type: 'success',
-                message: '删除成功!'
-            });
+
+            let params ={
+                "id":id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.list,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+
+                        this.getTableList(this.project)
+
+                    }
+
+                }
+            );
+
+
 
         },
 
@@ -217,14 +241,14 @@ var vm = new Vue({                  //创建Vue 实例
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.project)
         },
 
 
         //分页页面改变
         handleCurrentChange(val) {
             this.startIndex = (val - 1) * this.mrPage;
-            this.getTableList();
+            this.getTableList(this.project)
         },
 
 
