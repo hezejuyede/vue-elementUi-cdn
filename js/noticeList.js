@@ -197,7 +197,7 @@ var vm = new Vue({
 
         //进行编辑
         editClick(row) {
-            let page = "/cdn-vue-elementUi/page/noticeEdit.html?" + row.id + "";
+            let page = "/cdn-vue-elementUi/page/noticeEdit.html?id=" + row.id + "";
             window.location.href = page;
         },
 
@@ -248,7 +248,7 @@ var vm = new Vue({
 
         //查看详情
         detailsClick(row) {
-            let page = "/cdn-vue-elementUi/page/noticeDetails.html?" + row.id + "";
+            let page = "/cdn-vue-elementUi/page/noticeDetails.html?id=" + row.id + "";
             window.location.href = page;
         },
 

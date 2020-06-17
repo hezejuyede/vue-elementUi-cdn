@@ -62,6 +62,8 @@ var vm = new Vue({
 
 
     created: function () {
+         this.getDetails();
+
 
 
     },
@@ -79,6 +81,58 @@ var vm = new Vue({
         //根据屏幕设置div高度
         setDivHeight: () => {
             $(".elContainer").height(window.innerHeight);
+        },
+
+        //获取详情信息
+        getDetails() {
+            let params = {
+                "id": this.getUrlId()
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.details,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
+        },
+
+
+
+
+        //获取URL 传来的ID
+        getUrlId() {
+            //封装获取的URL中？后是ID
+            function GetRequest(urlStr) {
+                if (typeof urlStr == "undefined") {
+                    var url = decodeURI(location.search); //获取url中"?"符后的字符串
+                } else {
+                    var url = "?" + urlStr.split("?")[1];
+                }
+                var theRequest = new Object();
+                if (url.indexOf("?") !== -1) {
+                    var str = url.substr(1);
+                    var strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+            //获取ID 并赋值给
+            return GetRequest(window.location.search)['id'];
         },
 
 
