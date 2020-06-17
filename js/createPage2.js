@@ -2,7 +2,8 @@ var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
         URL: {
-            list: '/osg-omgmt1032/operator/c01/f97',
+            details: '/osg-omgmt1032/operator/c01/f97',//数据回显
+            nextStep: '/osg-omgmt1032/operator/c01/f97',//下一步
         },
 
 
@@ -120,8 +121,30 @@ var vm = new Vue({                  //创建Vue 实例
 
         //下一步
         nextStep(id) {
+
             let page = "/cdn-vue-elementUi/page/createPage3.html?" + id + "";
             window.location.href = page;
+
+            let params = {
+                "id": id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.nextStep,
+                    data: params,
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
 
         },
 
