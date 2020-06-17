@@ -244,6 +244,9 @@ var vm = new Vue({                  //创建Vue 实例
         },
 
 
+
+
+
         //页面改变
         handleCurrentChange(val) {
             this.startIndex = (val-1) * this.mrPage;
