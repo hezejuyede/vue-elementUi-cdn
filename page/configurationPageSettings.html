@@ -335,7 +335,7 @@
                                     label="操作"
                                     width="200">
                                 <template slot-scope="scope">
-                                    <span @click="showRwPz(scope.row)"
+                                    <span @click="showRwJlPz(scope.row)"
                                           style="color: #409EFF;cursor: pointer">奖励配置</span>
                                 </template>
                             </el-table-column>
@@ -539,14 +539,14 @@
                 </el-tab-pane>
             </el-tabs>
 
-            <div class="el-btn" v-if="activeName==='first' || activeName==='third' ">
-                <el-button type="primary" @click="doSave">保存</el-button>
+            <div class="el-btn" >
+                <el-button type="primary" @click="doSave" v-if="activeName==='first' || activeName==='third' ">保存</el-button>
                 <el-button @click="doCancel">取 消</el-button>
             </div>
         </el-main>
     </el-container>
 
-    <!-- 任务配置弹出框 -->
+    <!-- 奖励配置弹出框 -->
     <el-dialog title="任务配置" :visible.sync="rwVisible" width=40% :center="true" :close-on-click-modal="false"
                :show-close="true">
         <div class="" style="height: 200px">
@@ -563,7 +563,7 @@
         </div>
 
         <span slot="footer" class="dialog-footer" style="margin-bottom: 50px">
-            <el-button @click="doSavePz" type="primary">确定</el-button>
+            <el-button @click="doSaveJlPz" type="primary">确定</el-button>
             <el-button @click="rwVisible = false">取消</el-button>
         </span>
     </el-dialog>

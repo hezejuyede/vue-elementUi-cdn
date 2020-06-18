@@ -452,8 +452,8 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
-        //显示任务配置
-        showRwPz(row) {
+        //显示奖励配置
+        showRwJlPz(row) {
             if (row.id) {
                 this.rwVisible = true
 
@@ -484,8 +484,8 @@ var vm = new Vue({                  //创建Vue 实例
 
         },
 
-        //进行任务配置
-        doSavePz() {
+        //进行奖励配置
+        doSaveJlPz() {
             this.$refs.form4.validate((valid) => {
                 if (valid) {
 
@@ -575,9 +575,36 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
+
+
+
+
+
         //查看项目捐赠
-        seeClickJZ() {
-            this.seeJZVisible=true;
+        seeClickJZ(row) {
+            this.seeJZVisible = true;
+
+            let params = {
+                "id": row.id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.seeJZ,
+                    data:JSON.stringify(params),
+                    special: true ,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
         },
 
         //显示添加项目
@@ -591,6 +618,28 @@ var vm = new Vue({                  //创建Vue 实例
             this.$refs.form6.validate((valid) => {
                 if (valid) {
 
+                    let params = {
+                        "id": row.id
+                    };
+
+                    AJAX2.Async(
+                        {
+                            url: this.URL.addJZ,
+                            data:JSON.stringify(params),
+                            special: true ,
+                            isLoading: true
+                        },
+                        function (resp) {
+                            if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                                $.error(resp.message);
+                            }
+                            else {
+                                console.log(resp.data)
+                            }
+
+                        }
+                    );
+
                 } else {
                     return this.$message.warning("信息填写不正确");
                     return false
@@ -601,15 +650,56 @@ var vm = new Vue({                  //创建Vue 实例
 
 
         //显示编辑
-        editClickJZ(){
-             this.editJZVisible=true;
+        editClickJZ(row) {
+            this.editJZVisible = true;
+            let params = {
+                "id": row.id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.seeJZ,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
 
         },
 
         //进行编辑
         doEditJZ(){
+            let params = {
+                "id": row.id
+            };
 
+            AJAX2.Async(
+                {
+                    url: this.URL.editJZ,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
         },
+
+
         //显示删除捐赠
         showDeleteJZ(row){
 
@@ -629,8 +719,34 @@ var vm = new Vue({                  //创建Vue 实例
 
         //进行删除捐赠
         doDeleteJZ(id){
+            let params = {
+                "id": id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.deleteJZ,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
 
         },
+
+
+
+
+
+
 
 
         //显示添加问答
@@ -639,7 +755,10 @@ var vm = new Vue({                  //创建Vue 实例
             setTimeout(()=>{
                 this.setModelHeight();
 
-            },500)
+            },500);
+
+
+
 
         },
 
@@ -654,23 +773,124 @@ var vm = new Vue({                  //创建Vue 实例
 
         //添加问答
         doAddWD() {
+            this.$refs.form6.validate((valid) => {
+                if (valid) {
 
+                    let params = {
+                        "id": row.id
+                    };
+
+                    AJAX2.Async(
+                        {
+                            url: this.URL.addWJ,
+                            data:JSON.stringify(params),
+                            special: true ,
+                            isLoading: true
+                        },
+                        function (resp) {
+                            if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                                $.error(resp.message);
+                            }
+                            else {
+                                console.log(resp.data)
+                            }
+
+                        }
+                    );
+
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
+            });
 
         },
 
         //查看问答
         seeClickWD() {
             this.seeWJVisible=true;
+            let params = {
+                "id": row.id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.seeWJ,
+                    data:JSON.stringify(params),
+                    special: true ,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
 
         },
 
         //显示编辑问答
         editClickWD() {
             this.editWJVisible=true;
+            let params = {
+                "id": row.id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.seeWJ,
+                    data:JSON.stringify(params),
+                    special: true ,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    }
+                    else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
         },
 
         //进行问答编辑
         doEditWD() {
+            this.$refs.form6.validate((valid) => {
+                if (valid) {
+
+                    let params = {
+                        "id": row.id
+                    };
+
+                    AJAX2.Async(
+                        {
+                            url: this.URL.editWJ,
+                            data:JSON.stringify(params),
+                            special: true ,
+                            isLoading: true
+                        },
+                        function (resp) {
+                            if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                                $.error(resp.message);
+                            }
+                            else {
+                                console.log(resp.data)
+                            }
+
+                        }
+                    );
+
+                } else {
+                    return this.$message.warning("信息填写不正确");
+                    return false
+                }
+            });
 
         },
 
@@ -693,6 +913,26 @@ var vm = new Vue({                  //创建Vue 实例
 
         //进行删除
         doDeleteWD(id) {
+            let params = {
+                "id": id
+            };
+
+            AJAX2.Async(
+                {
+                    url: this.URL.deleteWJ,
+                    data: JSON.stringify(params),
+                    special: true,
+                    isLoading: true
+                },
+                function (resp) {
+                    if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
+                        $.error(resp.message);
+                    } else {
+                        console.log(resp.data)
+                    }
+
+                }
+            );
 
         },
 
@@ -789,30 +1029,6 @@ var vm = new Vue({                  //创建Vue 实例
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        editClick() {
-
-
-        },
-
-
         //保存
         doSave() {
             if (this.activeName === "first") {
@@ -864,30 +1080,6 @@ var vm = new Vue({                  //创建Vue 实例
                 });
 
             }
-            else if (this.activeName === "second") {
-
-                let params = {
-                    "id": id
-                };
-
-                AJAX2.Async(
-                    {
-                        url: this.URL.doSave2,
-                        data:JSON.stringify(params),
-                        special: true ,
-                        isLoading: true
-                    },
-                    function (resp) {
-                        if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
-                            $.error(resp.message);
-                        } else {
-                            console.log(resp.data)
-                        }
-
-                    }
-                );
-
-            }
             else if (this.activeName === "third") {
 
                 this.$refs.form5.validate((valid) => {
@@ -922,70 +1114,13 @@ var vm = new Vue({                  //创建Vue 实例
                 });
 
             }
-
-            else if (this.activeName === "fourth") {
-
-                let params = {
-                    "id": id
-                };
-
-                AJAX2.Async(
-                    {
-                        url: this.URL.doSave4,
-                        data:JSON.stringify(params),
-                        special: true ,
-                        isLoading: true
-                    },
-                    function (resp) {
-                        if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
-                            $.error(resp.message);
-                        } else {
-                            console.log(resp.data)
-                        }
-
-                    }
-                );
-
-            }
-            else if (this.activeName === "fifth") {
-
-                let params = {
-                    "id": id
-                };
-
-                AJAX2.Async(
-                    {
-                        url: this.URL.doSave5,
-                        data: JSON.stringify(params),
-                        special: true,
-                        isLoading: true
-                    },
-                    function (resp) {
-                        if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
-                            $.error(resp.message);
-                        } else {
-                            console.log(resp.data)
-                        }
-
-                    }
-                );
-
-            }
         },
-
-
-
-
-
 
 
         //取消
         doCancel() {
             window.history.go(-1)
         },
-
-
-
 
 
 
