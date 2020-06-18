@@ -341,17 +341,7 @@
                             </el-table-column>
                         </el-table>
                     </div>
-                    <div class="main-page clearfix">
-                        <el-pagination
-                                @size-change="handleSizeChange"
-                                @current-change="handleCurrentChange"
-                                :current-page="currentPage"
-                                :page-sizes="[10,50,100, 150,200,250,300]"
-                                :page-size="mrPage"
-                                layout="total, sizes, prev, pager, next, jumper"
-                                :total="countSize">
-                        </el-pagination>
-                    </div>
+
                 </el-tab-pane>
                 <el-tab-pane label="宝箱配置" name="third">
                     <div class="main-table-top">
@@ -471,6 +461,17 @@
                             </el-table-column>
                         </el-table>
                     </div>
+                    <div class="main-page clearfix">
+                        <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page="currentPage"
+                                :page-sizes="[10,50,100, 150,200,250,300]"
+                                :page-size="mrPage"
+                                layout="total, sizes, prev, pager, next, jumper"
+                                :total="countSize">
+                        </el-pagination>
+                    </div>
 
                 </el-tab-pane>
                 <el-tab-pane label="问卷管理" name="fifth">
@@ -526,19 +527,19 @@
                     </div>
                     <div class="main-page clearfix">
                         <el-pagination
-                                @size-change="handleSizeChange"
-                                @current-change="handleCurrentChange"
-                                :current-page="currentPage"
+                                @size-change="handleSizeChange2"
+                                @current-change="handleCurrentChange2"
+                                :current-page="currentPage2"
                                 :page-sizes="[10,50,100, 150,200,250,300]"
-                                :page-size="mrPage"
+                                :page-size="mrPage2"
                                 layout="total, sizes, prev, pager, next, jumper"
-                                :total="countSize">
+                                :total="countSize2">
                         </el-pagination>
                     </div>
                 </el-tab-pane>
             </el-tabs>
 
-            <div class="el-btn">
+            <div class="el-btn" v-if="activeName==='first' || activeName==='third' ">
                 <el-button type="primary" @click="doSave">保存</el-button>
                 <el-button @click="doCancel">取 消</el-button>
             </div>

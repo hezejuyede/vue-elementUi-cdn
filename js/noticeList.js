@@ -99,7 +99,7 @@ var vm = new Vue({
         //查询
         doSearch() {
 
-            this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+            this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
 
         },
 
@@ -233,7 +233,7 @@ var vm = new Vue({
                         $.error(resp.message);
                     }
                     else {
-                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
                         this.$message({
                             type: 'success',
                             message: '删除成功!'
@@ -267,7 +267,7 @@ var vm = new Vue({
                         $.error(resp.message);
                     }
                     else {
-                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
                         this.$message({
                             type: 'success',
                             message: '发布成功!'
@@ -292,7 +292,7 @@ var vm = new Vue({
                     if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
                         $.error(resp.message);
                     } else {
-                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+                        this.getLoadingList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
                         this.$message({
                             type: 'success',
                             message: '下线成功!'
@@ -308,14 +308,14 @@ var vm = new Vue({
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+            this.getTableList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
         },
 
 
         //分页页面改变
         handleCurrentChange(val) {
             this.startIndex = (val - 1) * this.mrPage;
-            this.getTableList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.pageSize);
+            this.getTableList(this.userName, this.examineTime[0], this.examineTime[1], this.releaseTime[0], this.releaseTime[1],this.types,  this.status,this.startIndex, this.mrPage);
         },
 
 

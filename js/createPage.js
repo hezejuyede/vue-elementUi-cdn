@@ -134,15 +134,17 @@ var vm = new Vue({                  //创建Vue 实例
 
         //查询
         doSearch(){
-            this.getTableList(this.project)
+            this.getTableList(this.project,this.startIndex, this.mrPage)
 
         },
 
 
         //页面加载去请求的table
-        getTableList(project){
-            let params ={
-                "project":project
+        getTableList(project, startIndex, pageSize) {
+            let params = {
+                "project": project,
+                "startIndex": startIndex,
+                "pageSize": pageSize
             };
 
             AJAX2.Async(
@@ -155,8 +157,7 @@ var vm = new Vue({                  //创建Vue 实例
                 function (resp) {
                     if (resp.code === 0 || resp.code === "0" || resp.code === 2 || resp.code === "2") {
                         $.error(resp.message);
-                    }
-                    else {
+                    } else {
 
                     }
 
@@ -241,14 +242,14 @@ var vm = new Vue({                  //创建Vue 实例
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList(this.project)
+            this.getTableList(this.project,this.startIndex, this.mrPage)
         },
 
 
         //分页页面改变
         handleCurrentChange(val) {
             this.startIndex = (val - 1) * this.mrPage;
-            this.getTableList(this.project)
+            this.getTableList(this.project,this.startIndex, this.mrPage)
         },
 
 

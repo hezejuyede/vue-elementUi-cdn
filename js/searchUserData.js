@@ -168,7 +168,7 @@ var vm = new Vue({                  //创建Vue 实例
 
         //查询用户
         searchUser(){
-            this.getTableList(this.userName,this.startIndex,this.pageSize)
+            this.getTableList(this.userName,this.startIndex, this.mrPage)
 
         },
 
@@ -240,7 +240,7 @@ var vm = new Vue({                  //创建Vue 实例
         handleSizeChange(val) {
             this.mrPage = val;
             this.startIndex = (this.currentPage - 1) * this.mrPage;
-            this.getTableList(this.userName,this.startIndex,this.pageSize);
+            this.getTableList(this.userName,this.startIndex, this.mrPage);
         },
 
 
@@ -250,7 +250,7 @@ var vm = new Vue({                  //创建Vue 实例
         //页面改变
         handleCurrentChange(val) {
             this.startIndex = (val-1) * this.mrPage;
-            this.getTableList(this.userName,this.startIndex,this.pageSize);
+            this.getTableList(this.userName,this.startIndex, this.mrPage);
         },
 
 
