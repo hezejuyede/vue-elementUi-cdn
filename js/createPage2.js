@@ -1,3 +1,5 @@
+var testEditor
+
 var vm = new Vue({                  //创建Vue 实例
     el: "#app",                     // DOM 元素，挂载视图模型，
     data: {                         // 定义属性，并设置初始值
@@ -101,8 +103,7 @@ var vm = new Vue({                  //创建Vue 实例
         setDivHeight() {
             let h = window.innerHeight
             $(".elContainer").height(h);
-
-            editormd("test-editor", {
+            testEditor = editormd("test-editor", {
                 width: "100%",
                 height: 740,
                 path: "../common/js/markdown/lib/",
@@ -116,17 +117,25 @@ var vm = new Vue({                  //创建Vue 实例
                 path: "../common/js/markdown/plugins/emoji-dialog/",
                 ext: ".png"
             };
+            $(".editormd-markdown-textarea").val("11")
+
+
         },
 
 
         //下一步
         nextStep(id) {
+            let markdown = testEditor.getMarkdown();
+            let html = testEditor.getHTML()
+
 
             let page = "/cdn-vue-elementUi/page/createPage3.html?" + id + "";
             window.location.href = page;
 
             let params = {
-                "id": id
+                "id": id,
+                "markdown": markdown,
+                "html": html
             };
 
             AJAX2.Async(
@@ -146,6 +155,7 @@ var vm = new Vue({                  //创建Vue 实例
                 }
             );
 
+
         },
 
 
@@ -153,6 +163,12 @@ var vm = new Vue({                  //创建Vue 实例
         lastStep(id) {
             let page = "/cdn-vue-elementUi/page/createPage1.html?" + id + "";
             window.location.href = page;
+        },
+
+        // 所有操作都会被解析重新渲染
+        change(value, render){
+            // render 为 markdown 解析后的结果[html]
+            this.html = render;
         },
 
 
