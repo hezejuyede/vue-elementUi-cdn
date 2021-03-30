@@ -54,6 +54,9 @@
 
 
 <div id="app">
+    <div class="containerBottom" id="panel">
+        <div id="dataBar" :style="{width: '100%', height: '300px'}"></div>
+    </div>
     <el-container class="elContainer">
         <el-aside width="200px" >
             <el-menu :default-openeds="['1']" background-color="#ffffff"  @select="selectNav">
@@ -98,6 +101,7 @@
 <script src="./common/js/vue.min.js"></script>
 <script src="./common/js/element.js"></script>
 <script src="./common/js/jquery-3.1.1.min.js"></script>
+<script src="./common/js/vue-echarts.min.js"></script>
 <script src="./common/js/utils.js"></script>
 <script src="./common/js/config.js"></script>
 <script src="./common/js/ajax2.js"></script>

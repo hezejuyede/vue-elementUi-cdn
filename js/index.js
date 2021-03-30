@@ -52,7 +52,7 @@ var vm = new Vue({                  //创建Vue 实例
         get: function () {
 
         },
-        // setter
+        //setter
         set: function (newValue) {
 
         }
@@ -106,8 +106,28 @@ var vm = new Vue({                  //创建Vue 实例
     methods: {                     // 定义方法，用于事件交互时使用的函数
 
         //根据屏幕设置div高度
-        setDivHeight: () => {
+        setDivHeight (){
             $(".elContainer").height(window.innerHeight);
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('dataBar'));
+
+            // 绘制图表
+            myChart.setOption({
+                title: {
+                    text: 'ECharts 入门示例'
+                },
+                tooltip: {},
+                xAxis: {
+                    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+                },
+                yAxis: {},
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }]
+            });
         },
 
         //选择菜单执行的跳转
